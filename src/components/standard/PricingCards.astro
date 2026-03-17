@@ -1,0 +1,113 @@
+---
+interface Plan {
+  title: string;
+  price: string;
+  period?: string;
+  description?: string;
+  features: string[];
+  cta: { label: string; href: string };
+  highlighted?: boolean;
+  badge?: string; // z.B. "Empfohlen"
+}
+
+interface Props {
+  headline?: string;
+  subline?: string;
+  plans: Plan[];
+}
+
+const { headline, subline, plans } = Astro.props;
+---
+
+<section class="animate-on-scroll py-16 md:py-24 bg-[var(--color-bg)]">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    {(headline || subline) && (
+      <div class="text-center mb-12 md:mb-16">
+        {headline && (
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[var(--color-text)] mb-4">
+            {headline}
+          </h2>
+        )}
+        {subline && (
+          <p class="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">{subline}</p>
+        )}
+      </div>
+    )}
+
+    <div class={`animate-stagger grid grid-cols-1 ${plans.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'} gap-6 md:gap-8 items-stretch`}>
+      {plans.map((plan) => (
+        <div class={`animate-item animate-up relative flex flex-col rounded-sm border p-8 transition-shadow duration-300 ${
+          plan.highlighted
+            ? 'bg-[var(--color-primary)] border-[var(--color-primary)] shadow-2xl md:-mt-4 md:-mb-4'
+            : 'bg-[var(--color-surface)] border-[var(--color-border)] hover:shadow-lg'
+        }`}>
+
+          {/* Badge */}
+          {(plan.highlighted || plan.badge) && (
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+              <span class="inline-block px-4 py-1.5 text-xs font-bold tracking-widest uppercase rounded-full bg-[var(--color-secondary)] text-white shadow-md whitespace-nowrap">
+                {plan.badge ?? 'Empfohlen'}
+              </span>
+            </div>
+          )}
+
+          {/* Titel */}
+          <h3 class={`text-lg font-bold mb-2 ${plan.highlighted ? 'text-[var(--color-text-inverse)]' : 'text-[var(--color-text)]'}`}>
+            {plan.title}
+          </h3>
+
+          {/* Preis */}
+          <div class="flex items-end gap-1 mb-4">
+            <span class={`text-4xl md:text-5xl font-bold tabular-nums leading-none ${plan.highlighted ? 'text-[var(--color-text-inverse)]' : 'text-[var(--color-primary)]'}`}>
+              {plan.price}
+            </span>
+            {plan.period && (
+              <span class={`text-sm mb-1 ${plan.highlighted ? 'text-[var(--color-text-inverse)] opacity-70' : 'text-[var(--color-text-muted)]'}`}>
+                /{plan.period}
+              </span>
+            )}
+          </div>
+
+          {/* Beschreibung */}
+          {plan.description && (
+            <p class={`text-sm leading-relaxed mb-6 ${plan.highlighted ? 'text-[var(--color-text-inverse)] opacity-80' : 'text-[var(--color-text-muted)]'}`}>
+              {plan.description}
+            </p>
+          )}
+
+          {/* Feature-Liste */}
+          <ul class="flex flex-col gap-3 mb-8 flex-1">
+            {plan.features.map((feature) => (
+              <li class="flex items-start gap-3">
+                <svg
+                  class={`w-5 h-5 flex-shrink-0 mt-0.5 ${plan.highlighted ? 'text-[var(--color-text-inverse)]' : 'text-[var(--color-primary)]'}`}
+                  fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+                <span class={`text-sm ${plan.highlighted ? 'text-[var(--color-text-inverse)] opacity-90' : 'text-[var(--color-text-muted)]'}`}>
+                  {feature}
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          {/* CTA */}
+          <a
+            href={plan.cta.href}
+            class={`w-full text-center px-6 py-3.5 text-sm font-semibold rounded-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${
+              plan.highlighted
+                ? 'bg-[var(--color-text-inverse)] text-[var(--color-primary)] hover:brightness-95'
+                : 'bg-[var(--color-primary)] text-[var(--color-text-inverse)] hover:brightness-110'
+            }`}
+          >
+            {plan.cta.label}
+          </a>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

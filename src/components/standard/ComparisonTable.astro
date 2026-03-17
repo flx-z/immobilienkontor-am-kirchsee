@@ -1,0 +1,149 @@
+---
+interface Column {
+  title: string;
+  highlighted?: boolean;
+}
+
+interface Row {
+  label: string;
+  values: (string | boolean)[];
+}
+
+interface Cta {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  headline?: string;
+  subline?: string;
+  columns: Column[];
+  rows: Row[];
+  ctas?: Cta[];
+  backgroundVariant?: 'light' | 'dark';
+}
+
+const { headline, subline, columns, rows, ctas, backgroundVariant = 'light' } = Astro.props;
+const isDark = backgroundVariant === 'dark';
+---
+
+<section class={`animate-on-scroll py-16 md:py-24 ${isDark ? 'bg-[var(--color-surface)]' : 'bg-[var(--color-bg)]'}`}>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    {(headline || subline) && (
+      <div class="text-center mb-10 md:mb-14">
+        {headline && (
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[var(--color-text)] mb-4">
+            {headline}
+          </h2>
+        )}
+        {subline && (
+          <p class="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">{subline}</p>
+        )}
+      </div>
+    )}
+
+    {/* Scroll-Wrapper für Mobile */}
+    <div class="overflow-x-auto -mx-4 sm:mx-0">
+      <div class="min-w-[600px] px-4 sm:px-0">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr>
+              {/* Leere Label-Spalte */}
+              <th class="w-1/3 pb-4 text-left" />
+              {columns.map((col) => (
+                <th
+                  class={`pb-4 text-center text-sm font-semibold relative ${
+                    col.highlighted
+                      ? 'text-[var(--color-text-inverse)]'
+                      : 'text-[var(--color-text)]'
+                  }`}
+                >
+                  {col.highlighted && (
+                    <div class="absolute inset-x-0 -top-2 bottom-0 bg-[var(--color-primary)] rounded-t-xl -z-10" />
+                  )}
+                  <span class="relative z-10 px-4 py-3 block">{col.title}</span>
+                </th>
+              ))}
+            </tr>
+          </thead>
+
+          <tbody>
+            {rows.map((row, ri) => (
+              <tr class={`border-t border-[var(--color-border)] ${ri % 2 === 0 ? '' : isDark ? 'bg-white/[0.02]' : 'bg-black/[0.02]'}`}>
+                {/* Label-Spalte */}
+                <td class="py-3.5 pr-4 text-sm text-[var(--color-text-muted)] font-medium">
+                  {row.label}
+                </td>
+
+                {row.values.map((val, ci) => {
+                  const col = columns[ci];
+                  return (
+                    <td class={`py-3.5 text-center relative ${col?.highlighted ? '' : ''}`}>
+                      {col?.highlighted && (
+                        <div class={`absolute inset-x-0 inset-y-0 bg-[var(--color-primary)] -z-10 ${ri === rows.length - 1 && !ctas ? 'rounded-b-xl' : ''}`} />
+                      )}
+                      {typeof val === 'boolean' ? (
+                        val ? (
+                          <svg
+                            class={`w-5 h-5 mx-auto ${col?.highlighted ? 'text-white' : 'text-[var(--color-primary)]'}`}
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            aria-label="Ja"
+                          >
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                          </svg>
+                        ) : (
+                          <svg
+                            class="w-4 h-4 mx-auto text-[var(--color-text-muted)]/40"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            aria-label="Nein"
+                          >
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                          </svg>
+                        )
+                      ) : (
+                        <span class={`text-sm ${col?.highlighted ? 'text-white font-medium' : 'text-[var(--color-text)]'}`}>
+                          {val}
+                        </span>
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+
+            {/* CTA-Zeile */}
+            {ctas && (
+              <tr>
+                <td class="pt-6" />
+                {ctas.map((cta, ci) => {
+                  const col = columns[ci];
+                  return (
+                    <td class={`pt-6 px-3 text-center relative`}>
+                      {col?.highlighted && (
+                        <div class="absolute inset-x-0 inset-y-0 bg-[var(--color-primary)] rounded-b-xl -z-10" />
+                      )}
+                      <a
+                        href={cta.href}
+                        class={`inline-block w-full py-2.5 px-4 rounded text-sm font-semibold transition-opacity hover:opacity-80 ${
+                          col?.highlighted
+                            ? 'bg-white text-[var(--color-primary)]'
+                            : 'bg-[var(--color-primary)] text-[var(--color-text-inverse)]'
+                        }`}
+                      >
+                        {cta.label}
+                      </a>
+                    </td>
+                  );
+                })}
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>

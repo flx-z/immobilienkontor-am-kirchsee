@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NavStandard from '../components/core/NavStandard.astro';
+import PageHeader from '../components/utility/PageHeader.astro';
+import ContactSplit from '../components/core/ContactSplit.astro';
+import EmbedMap from '../components/standard/EmbedMap.astro';
+import FooterStandard from '../components/core/FooterStandard.astro';
+---
+<BaseLayout
+  title="Kontakt – Immobilienkontor am Kirchsee | Preetz & Kiel"
+  description="Unverbindliches Erstgespräch mit Marcel Ziebell vereinbaren. Immobilienkontor am Kirchsee, Lange Brückstraße 28, 24211 Preetz. Jetzt Kontakt aufnehmen."
+>
+  <NavStandard
+    logo="/logo.svg"
+    logoAlt="Immobilienkontor am Kirchsee Logo"
+    logoHeight={48}
+    links={[
+      { label: "Start", href: "/" },
+      { label: "Leistungen", href: "/leistungen" },
+      { label: "Ihr Vorteil", href: "/ihr-vorteil" },
+      { label: "Über uns", href: "/ueber-uns" },
+      { label: "Tippgeber", href: "/tippgeber" },
+      { label: "Kontakt", href: "/kontakt" }
+    ]}
+    cta={{ text: "Beratungsgespräch anfragen", href: "/kontakt" }}
+  />
+
+  <PageHeader
+    headline="Kontakt"
+    subline="Nehmen Sie unverbindlich Kontakt auf – wir melden uns zeitnah bei Ihnen."
+    breadcrumbs={[
+      { label: "Start", href: "/" },
+      { label: "Kontakt" }
+    ]}
+    backgroundVariant="light"
+  />
+
+  <ContactSplit
+    headline="Sprechen Sie mit uns."
+    subline="Unverbindlich, kostenlos und direkt mit Marcel Ziebell."
+    contactInfo={{ address: "Lange Brückstraße 28, 24211 Preetz" }}
+    backgroundVariant="light"
+  />
+
+  <EmbedMap
+    embedUrl="https://maps.google.com/maps?q=Lange+Br%C3%BCckstra%C3%9Fe+28+24211+Preetz&z=16&output=embed"
+    headline="So finden Sie uns"
+    subline="Immobilienkontor am Kirchsee, Lange Brückstraße 28, 24211 Preetz"
+    height="md"
+  />
+
+  <FooterStandard
+    logo={{ src: "/logo.svg", alt: "Immobilienkontor am Kirchsee Logo", height: 56 }}
+    description="Konsequent auf Ihrer Seite."
+    columns={[
+      {
+        headline: "Leistungen",
+        links: [
+          { label: "Immobilien verkaufen", href: "/leistungen" },
+          { label: "Ihr wirtschaftlicher Vorteil", href: "/ihr-vorteil" },
+          { label: "Tippgeber-Programm", href: "/tippgeber" }
+        ]
+      },
+      {
+        headline: "Unternehmen",
+        links: [
+          { label: "Über uns", href: "/ueber-uns" },
+          { label: "Kontakt", href: "/kontakt" }
+        ]
+      }
+    ]}
+    contact={{ address: "Lange Brückstraße 28, 24211 Preetz" }}
+    legalLinks={[
+      { label: "Impressum", href: "/impressum" },
+      { label: "Datenschutz", href: "/datenschutz" }
+    ]}
+    copyright="© 2026 Immobilienkontor am Kirchsee. Alle Rechte vorbehalten."
+  />
+</BaseLayout>

@@ -1,0 +1,89 @@
+---
+interface Breadcrumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  headline: string;
+  subline?: string;
+  breadcrumbs?: Breadcrumb[];
+  backgroundVariant?: 'light' | 'dark' | 'primary';
+}
+
+const {
+  headline,
+  subline,
+  breadcrumbs = [],
+  backgroundVariant = 'light',
+} = Astro.props;
+
+const bgStyle = (() => {
+  if (backgroundVariant === 'primary') return 'background-color: var(--color-primary);';
+  if (backgroundVariant === 'dark') return 'background-color: var(--color-surface);';
+  return 'background-color: var(--color-bg); border-bottom: 1px solid var(--color-border);';
+})();
+
+const textColor = (() => {
+  if (backgroundVariant === 'primary') return 'var(--color-text-inverse)';
+  if (backgroundVariant === 'dark') return 'var(--color-text)';
+  return 'var(--color-text)';
+})();
+
+const mutedColor = (() => {
+  if (backgroundVariant === 'primary') return 'rgba(255,255,255,0.6)';
+  return 'var(--color-text-muted)';
+})();
+---
+
+<header class="animate-on-scroll" style={bgStyle}>
+  {/* Content */}
+  <div class="animate-stagger relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-16 min-h-[200px] flex flex-col justify-center">
+    {/* Breadcrumb */}
+    {breadcrumbs.length > 0 && (
+      <nav class="animate-item animate-up" aria-label="Breadcrumb" style="margin-bottom: 1rem;">
+        <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.25rem; align-items: center;">
+          {breadcrumbs.map((crumb, i) => {
+            const isLast = i === breadcrumbs.length - 1;
+            return (
+              <li style="display: flex; align-items: center; gap: 0.25rem;">
+                {i > 0 && (
+                  <span aria-hidden="true" style={`color: ${mutedColor}; font-size: 0.8125rem; padding: 0 0.125rem;`}>/</span>
+                )}
+                {isLast || !crumb.href ? (
+                  <span
+                    style={`font-size: 0.8125rem; font-weight: ${isLast ? '500' : '400'}; color: ${isLast ? mutedColor : mutedColor};`}
+                    aria-current={isLast ? 'page' : undefined}
+                  >
+                    {crumb.label}
+                  </span>
+                ) : (
+                  <a
+                    href={crumb.href}
+                    style={`font-size: 0.8125rem; color: ${mutedColor}; text-decoration: none; transition: opacity 0.15s;`}
+                    onmouseover="this.style.opacity='0.7'"
+                    onmouseout="this.style.opacity='1'"
+                  >
+                    {crumb.label}
+                  </a>
+                )}
+              </li>
+            );
+          })}
+        </ol>
+      </nav>
+    )}
+
+    {/* Headline */}
+    <h1 class="animate-item animate-up" style={`margin: 0; font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: ${textColor};`}>
+      {headline}
+    </h1>
+
+    {/* Subline */}
+    {subline && (
+      <p class="animate-item animate-up" style={`margin: 0.75rem 0 0; font-size: 1.0625rem; line-height: 1.6; color: ${mutedColor}; max-width: 48rem;`}>
+        {subline}
+      </p>
+    )}
+  </div>
+</header>

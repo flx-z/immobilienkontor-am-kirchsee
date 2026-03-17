@@ -1,0 +1,73 @@
+---
+interface TimelineItem {
+  year: string | number;
+  title: string;
+  text: string;
+}
+
+interface Props {
+  headline?: string;
+  subline?: string;
+  items: TimelineItem[];
+}
+
+const { headline, subline, items } = Astro.props;
+---
+
+<section class="animate-on-scroll py-16 md:py-24 bg-[var(--color-bg)]">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    {(headline || subline) && (
+      <div class="text-center mb-14 md:mb-20">
+        {headline && (
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[var(--color-text)] mb-4">
+            {headline}
+          </h2>
+        )}
+        {subline && (
+          <p class="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
+            {subline}
+          </p>
+        )}
+      </div>
+    )}
+
+    {/* Timeline Container */}
+    <div class="relative">
+
+      {/* Vertikale Linie – Desktop: zentriert | Mobile: links (40px) */}
+      <div class="absolute left-10 md:left-1/2 top-0 bottom-0 w-px bg-[var(--color-border)] -translate-x-px md:-translate-x-1/2" aria-hidden="true"></div>
+
+      <div class="animate-stagger flex flex-col gap-12 md:gap-16">
+        {items.map((item, i) => {
+          const isEven = i % 2 === 0;
+          return (
+            <div class={`animate-item ${isEven ? 'animate-left' : 'animate-right'} relative flex items-start md:items-center gap-0 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+
+              {/* Connector-Punkt auf der Linie */}
+              <div class="absolute left-10 md:left-1/2 top-1 md:top-1/2 -translate-x-1/2 md:-translate-y-1/2 w-4 h-4 rounded-full bg-[var(--color-primary)] border-2 border-[var(--color-bg)] z-10 ring-2 ring-[var(--color-primary)] ring-offset-0" aria-hidden="true"></div>
+
+              {/* Spacer Mobile (links von Linie) */}
+              <div class="w-16 flex-shrink-0 md:hidden"></div>
+
+              {/* Content-Block */}
+              <div class={`w-full md:w-[calc(50%-2rem)] rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] p-6 md:p-8 ${isEven ? 'md:mr-auto md:ml-0' : 'md:ml-auto md:mr-0'}`}>
+                <span class="text-sm font-bold tracking-widest uppercase text-[var(--color-primary)] mb-2 block">
+                  {item.year}
+                </span>
+                <h3 class="text-lg font-semibold text-[var(--color-text)] mb-2">
+                  {item.title}
+                </h3>
+                <p class="text-sm leading-relaxed text-[var(--color-text-muted)]">
+                  {item.text}
+                </p>
+              </div>
+
+            </div>
+          );
+        })}
+      </div>
+
+    </div>
+  </div>
+</section>

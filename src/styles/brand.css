@@ -1,0 +1,76 @@
+:root {
+  /* Brand colors */
+  --color-primary: #2C3E38;
+  --color-secondary: #C4A96B;
+  --color-tertiary: #D4BC8A;
+
+  /* Neutral tones */
+  --color-bg: #F7F5F0;
+  --color-surface: #EDEAE3;
+  --color-border: #D6D1C7;
+
+  /* Text */
+  --color-text: #1A2420;
+  --color-text-muted: #5A6660;
+  --color-text-inverse: #F7F5F0;
+
+  /* Nav-Höhe für scroll-padding */
+  --nav-height: 80px;
+
+  /* Motion */
+  --motion-duration: 0.75s;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  /* Verhindert, dass Anker-Links hinter der sticky Nav verschwinden */
+  scroll-padding-top: var(--nav-height);
+}
+.animate-on-scroll,
+.animate-item {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0) scale(0.98);
+  filter: blur(3px);
+  transition:
+    opacity var(--motion-duration, 0.75s) var(--motion-ease, cubic-bezier(0.22, 1, 0.36, 1)),
+    transform var(--motion-duration, 0.75s) var(--motion-ease, cubic-bezier(0.22, 1, 0.36, 1)),
+    filter 0.6s ease;
+  will-change: opacity, transform, filter;
+}
+
+.animate-item {
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.animate-on-scroll.is-visible,
+.animate-item.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+
+.animate-left {
+  transform: translate3d(-38px, 18px, 0) scale(0.985);
+}
+
+.animate-right {
+  transform: translate3d(38px, 18px, 0) scale(0.985);
+}
+
+.animate-up {
+  transform: translate3d(0, 32px, 0) scale(0.98);
+}
+
+.animate-zoom {
+  transform: translate3d(0, 24px, 0) scale(0.94);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-scroll,
+  .animate-item {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}

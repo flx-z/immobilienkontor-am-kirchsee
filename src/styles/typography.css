@@ -1,0 +1,21 @@
+/*
+  Typografie-System
+  Font-Entscheidung: Cormorant Garamond + Inter
+
+  Verwendung:
+  H1:          text-5xl md:text-6xl lg:text-7xl font-light tracking-wide leading-tight
+  H2:          text-3xl md:text-4xl lg:text-5xl font-light tracking-wide leading-snug
+  H3:          text-xl md:text-2xl font-medium tracking-wide leading-snug
+  Body:        text-base md:text-lg leading-relaxed
+  Muted/Small: text-sm leading-normal text-[var(--color-text-muted)]
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cormorant Garamond', sans-serif;
+}

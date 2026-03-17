@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NavStandard from '../components/core/NavStandard.astro';
+import HeroCentered from '../components/core/HeroCentered.astro';
+import ContentParagraph from '../components/core/ContentParagraph.astro';
+import AboutStats from '../components/standard/AboutStats.astro';
+import FeaturesGrid from '../components/core/FeaturesGrid.astro';
+import ContentQuote from '../components/standard/ContentQuote.astro';
+import CTABanner from '../components/core/CTABanner.astro';
+import FooterStandard from '../components/core/FooterStandard.astro';
+---
+<BaseLayout
+  title="Ihr Vorteil beim Verkauf – Immobilienkontor am Kirchsee | Preetz"
+  description="Wie der Wegfall der Käuferprovision mehr Nachfrage und bessere Verkaufspreise erzeugt. Jetzt verstehen, was das konkret für Ihre Immobilie bedeutet."
+>
+  <NavStandard
+    logo="/logo.svg"
+    logoAlt="Immobilienkontor am Kirchsee Logo"
+    logoHeight={48}
+    links={[
+      { label: "Start", href: "/" },
+      { label: "Leistungen", href: "/leistungen" },
+      { label: "Ihr Vorteil", href: "/ihr-vorteil" },
+      { label: "Über uns", href: "/ueber-uns" },
+      { label: "Tippgeber", href: "/tippgeber" },
+      { label: "Kontakt", href: "/kontakt" }
+    ]}
+    cta={{ text: "Beratungsgespräch anfragen", href: "/kontakt" }}
+  />
+
+  <HeroCentered
+    headline="Ihr wirtschaftlicher Vorteil – konkret."
+    subline="Wie der Wegfall der Käuferprovision Nachfrage erhöht, Wettbewerb steigert und Ihren Verkaufspreis verbessert."
+    primaryCta={{ text: "Jetzt Gespräch vereinbaren", href: "/kontakt" }}
+    backgroundVariant="dark"
+  />
+
+  <ContentParagraph
+    kicker="Das Prinzip"
+    headline="Weniger Hürden für Käufer – mehr Ergebnis für Sie."
+    text="Im klassischen Maklermodell trägt der Käufer eine Provision von bis zu 3,57 % des Kaufpreises. Diese Summe erhöht die Kaufnebenkosten erheblich und schließt einen Teil der potenziellen Käufer aus – nämlich jene, deren Eigenkapital für diese Mehrkosten nicht ausreicht. Das Immobilienkontor am Kirchsee verzichtet auf die Käuferprovision vollständig. Das Ergebnis: ein messbarer Anstieg der finanzierungsfähigen Interessenten, mehr Nachfrage, mehr Wettbewerb – und in der Konsequenz bessere Preise für Sie als Verkäufer."
+    backgroundVariant="light"
+  />
+
+  <AboutStats
+    headline="Die Logik dahinter in Zahlen"
+    stats={[
+      { value: 3, suffix: ",57%", label: "Käuferprovision im klassischen Modell" },
+      { value: 0, suffix: "€", label: "Käuferprovision bei uns" },
+      { value: 100, suffix: "%", label: "Entscheidungen in Ihrem Interesse" }
+    ]}
+    backgroundVariant="dark"
+  />
+
+  <FeaturesGrid
+    headline="Was der Wegfall der Käuferprovision konkret bewirkt"
+    features={[
+      { icon: "users", title: "Mehr qualifizierte Käufer", text: "Niedrigere Kaufnebenkosten bedeuten, dass mehr Interessenten die Finanzierungsanforderungen der Banken erfüllen." },
+      { icon: "chart-bar", title: "Höhere Nachfrage", text: "Ein größerer Kreis finanzierungsfähiger Käufer erhöht die aktive Nachfrage nach Ihrer Immobilie messbar." },
+      { icon: "lightning", title: "Mehr Wettbewerb", text: "Mehr Interessenten führen zu mehr Wettbewerb unter den Käufern – das wirkt direkt auf den erzielbaren Preis." },
+      { icon: "euro", title: "Besserer Verkaufspreis", text: "Wettbewerb unter Käufern ist der effektivste Mechanismus für einen höheren Verkaufspreis." },
+      { icon: "clock", title: "Schnellerer Verkauf", text: "Weniger Finanzierungen scheitern an Nebenkosten. Das beschleunigt den Abschluss und erhöht die Planungssicherheit." },
+      { icon: "shield-check", title: "Keine Interessenkonflikte", text: "Da wir ausschließlich für Sie tätig sind, wird jede Entscheidung konsequent in Ihrem Sinne getroffen." }
+    ]}
+    columns={3}
+    variant="cards"
+    backgroundVariant="light"
+  />
+
+  <ContentQuote
+    quote="Mehr finanzierungsfähige Käufer bedeuten mehr Nachfrage. Mehr Nachfrage führt zu mehr Wettbewerb. Mehr Wettbewerb führt zu besseren Preisen."
+    name="Marcel Ziebell"
+    role="Gründer, Immobilienkontor am Kirchsee"
+    backgroundVariant="dark"
+  />
+
+  <CTABanner
+    headline="Erfahren Sie, was unser Ansatz für Ihre Immobilie bedeutet."
+    subline="Unverbindliches Erstgespräch – kostenlos und direkt mit Marcel Ziebell."
+    primaryCta={{ label: "Jetzt anfragen", href: "/kontakt" }}
+    backgroundVariant="light"
+  />
+
+  <FooterStandard
+    logo={{ src: "/logo.svg", alt: "Immobilienkontor am Kirchsee Logo", height: 56 }}
+    description="Konsequent auf Ihrer Seite."
+    columns={[
+      {
+        headline: "Leistungen",
+        links: [
+          { label: "Immobilien verkaufen", href: "/leistungen" },
+          { label: "Ihr wirtschaftlicher Vorteil", href: "/ihr-vorteil" },
+          { label: "Tippgeber-Programm", href: "/tippgeber" }
+        ]
+      },
+      {
+        headline: "Unternehmen",
+        links: [
+          { label: "Über uns", href: "/ueber-uns" },
+          { label: "Kontakt", href: "/kontakt" }
+        ]
+      }
+    ]}
+    contact={{ address: "Lange Brückstraße 28, 24211 Preetz" }}
+    legalLinks={[
+      { label: "Impressum", href: "/impressum" },
+      { label: "Datenschutz", href: "/datenschutz" }
+    ]}
+    copyright="© 2026 Immobilienkontor am Kirchsee. Alle Rechte vorbehalten."
+  />
+</BaseLayout>

@@ -1,0 +1,124 @@
+---
+interface Props {
+  headline?: string;
+  subline?: string;
+  videoUrl: string;
+  thumbnail: { src: string; alt: string };
+  backgroundVariant?: 'light' | 'dark';
+}
+
+const {
+  headline,
+  subline,
+  videoUrl,
+  thumbnail,
+  backgroundVariant = 'light',
+} = Astro.props;
+
+const isDark = backgroundVariant === 'dark';
+
+// YouTube & Vimeo Embed-URL parsen
+function getEmbedUrl(url: string): string {
+  // YouTube: youtu.be/ID oder youtube.com/watch?v=ID oder youtube.com/shorts/ID
+  const ytShort = url.match(/youtu\.be\/([^?&#]+)/);
+  const ytWatch = url.match(/youtube\.com\/(?:watch\?v=|shorts\/)([^?&#/]+)/);
+  const ytId = (ytShort || ytWatch)?.[1];
+  if (ytId) return `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0`;
+
+  // Vimeo
+  const vimeo = url.match(/vimeo\.com\/(\d+)/);
+  if (vimeo?.[1]) return `https://player.vimeo.com/video/${vimeo[1]}?autoplay=1&title=0&byline=0&portrait=0`;
+
+  return url; // Fallback: URL direkt verwenden
+}
+
+const embedUrl = getEmbedUrl(videoUrl);
+const uid = `video-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<section class={`animate-on-scroll py-16 md:py-24 ${isDark ? 'bg-[var(--color-surface)]' : 'bg-[var(--color-bg)]'}`}>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    {(headline || subline) && (
+      <div class="text-center mb-10 md:mb-14">
+        {headline && (
+          <h2 class={`text-3xl md:text-4xl font-bold tracking-tight mb-4 ${isDark ? 'text-[var(--color-text)]' : 'text-[var(--color-text)]'}`}>
+            {headline}
+          </h2>
+        )}
+        {subline && (
+          <p class={`text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto`}>
+            {subline}
+          </p>
+        )}
+      </div>
+    )}
+
+    {/* Video-Container 16:9 */}
+    <div id={uid} class="relative w-full aspect-video rounded-md overflow-hidden cursor-pointer group shadow-lg">
+
+      {/* Thumbnail */}
+      <img
+        src={thumbnail.src}
+        alt={thumbnail.alt || ''}
+        class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        data-thumbnail
+      />
+
+      {/* Dunkler Overlay */}
+      <div class="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300" data-overlay></div>
+
+      {/* Play-Button */}
+      <button
+        class="absolute inset-0 flex items-center justify-center"
+        aria-label="Video abspielen"
+        data-play-btn
+      >
+        <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/90 flex items-center justify-center shadow-xl transition-transform duration-200 group-hover:scale-110">
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="text-[var(--color-primary)] ml-1"
+            aria-hidden="true"
+          >
+            <polygon points="5,3 19,12 5,21" />
+          </svg>
+        </div>
+      </button>
+
+      {/* iFrame wird per JS eingebettet */}
+      <iframe
+        data-src={embedUrl}
+        class="absolute inset-0 w-full h-full hidden"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+        data-iframe
+      ></iframe>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-play-btn]').forEach((btn) => {
+    const container = btn.closest<HTMLElement>('[id^="video-"]')!;
+    if (!container) return;
+
+    const thumbnail = container.querySelector<HTMLElement>('[data-thumbnail]');
+    const overlay = container.querySelector<HTMLElement>('[data-overlay]');
+    const iframe = container.querySelector<HTMLIFrameElement>('[data-iframe]');
+
+    btn.addEventListener('click', () => {
+      if (!iframe) return;
+      iframe.src = iframe.dataset.src ?? '';
+      iframe.classList.remove('hidden');
+      thumbnail?.classList.add('hidden');
+      overlay?.classList.add('hidden');
+      btn.classList.add('hidden');
+    });
+  });
+</script>

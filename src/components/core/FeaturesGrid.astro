@@ -1,0 +1,127 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+
+type IconName =
+  | 'check' | 'star' | 'shield-check' | 'chart-bar' | 'clock' | 'users'
+  | 'check-circle' | 'check-badge'
+  | 'beer' | 'car' | 'bike' | 'motorbike'
+  | 'lightning' | 'globe' | 'heart' | 'key' | 'lock' | 'award'
+  | 'code' | 'mail' | 'phone' | 'settings' | 'search' | 'arrow-right'
+  | 'home' | 'map-pin' | 'calendar' | 'briefcase' | 'truck' | 'wrench'
+  | 'scissors' | 'building' | 'camera' | 'chat' | 'document' | 'sparkles'
+  | 'face-smile' | 'finger-print' | 'pencil-square' | 'puzzle-piece'
+  | 'rocket' | 'trash'
+  | 'sun' | 'fire' | 'wifi' | 'euro' | 'paint-brush'
+  | 'academic-cap';
+
+interface Feature {
+  icon: IconName;
+  title: string;
+  text: string;
+}
+
+interface Props {
+  headline?: string;
+  subline?: string;
+  features: Feature[];
+  columns?: 3 | 4;
+  backgroundVariant?: 'light' | 'dark';
+  variant?: 'cards' | 'flat'; // cards: Border + Surface-BG; flat: kein Rahmen
+}
+
+const {
+  headline,
+  subline,
+  features,
+  columns = 3,
+  backgroundVariant = 'light',
+  variant = 'cards',
+} = Astro.props;
+
+const isDark = backgroundVariant === 'dark';
+const colClass = columns === 4
+  ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'
+  : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3';
+
+const ICONS_DIR = path.resolve('./src/assets/icons');
+const iconCache = new Map<IconName, string>();
+
+function normalizeIconSvg(svg: string): string {
+  return svg
+    .replace(/stroke="[^"]*"/g, 'stroke="currentColor"')
+    .replace(/stroke='[^']*'/g, "stroke='currentColor'")
+    .replace(/fill="(?!none)[^"]*"/g, 'fill="none"')
+    .replace(/fill='(?!none)[^']*'/g, "fill='none'");
+}
+
+function loadIcon(name: IconName): string {
+  const cached = iconCache.get(name);
+  if (cached !== undefined) return cached;
+
+  const iconPath = path.join(ICONS_DIR, `${name}.svg`);
+  if (!fs.existsSync(iconPath)) {
+    iconCache.set(name, '');
+    return '';
+  }
+
+  try {
+    const svg = normalizeIconSvg(fs.readFileSync(iconPath, 'utf-8'));
+    iconCache.set(name, svg);
+    return svg;
+  } catch {
+    iconCache.set(name, '');
+    return '';
+  }
+}
+---
+
+<section class={`animate-on-scroll py-16 md:py-24 ${isDark ? 'bg-[var(--color-primary)]' : 'bg-[var(--color-bg)]'}`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    {(headline || subline) && (
+      <div class="text-center mb-12 md:mb-16">
+        {headline && (
+          <h2 class={`text-3xl md:text-4xl font-bold tracking-tight mb-4 ${isDark ? 'text-[var(--color-text-inverse)]' : 'text-[var(--color-text)]'}`}>
+            {headline}
+          </h2>
+        )}
+        {subline && (
+          <p class={`text-lg max-w-2xl mx-auto ${isDark ? 'text-[var(--color-text-inverse)] opacity-80' : 'text-[var(--color-text-muted)]'}`}>
+            {subline}
+          </p>
+        )}
+      </div>
+    )}
+
+    <div class={`animate-stagger grid ${colClass} gap-6 md:gap-8`}>
+      {features.map((feature) => (
+        <div class={`animate-item animate-up flex flex-col gap-4 p-6 ${
+          variant === 'cards'
+            ? `rounded-sm border border-[var(--color-border)] ${isDark ? 'bg-white/5' : 'bg-[var(--color-surface)]'}`
+            : ''
+        }`}>
+
+          {/* Icon */}
+          <div
+            class={`w-10 h-10 flex-shrink-0 [&>svg]:w-full [&>svg]:h-full [&>svg]:block ${isDark ? 'text-[var(--color-text-inverse)]' : 'text-[var(--color-primary)]'}`}
+            set:html={loadIcon(feature.icon)}
+            aria-hidden="true"
+          />
+
+          {/* Text */}
+          <div>
+            <h3 class={`text-base font-semibold mb-2 ${isDark ? 'text-[var(--color-text-inverse)]' : 'text-[var(--color-text)]'}`}>
+              {feature.title}
+            </h3>
+            <p class={`text-sm leading-relaxed ${isDark ? 'text-[var(--color-text-inverse)] opacity-70' : 'text-[var(--color-text-muted)]'}`}>
+              {feature.text}
+            </p>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

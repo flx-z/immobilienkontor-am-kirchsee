@@ -1,0 +1,61 @@
+---
+interface Props {
+  quote: string;
+  name?: string;
+  role?: string;
+  image?: { src: string; alt: string };
+  backgroundVariant?: 'light' | 'dark';
+}
+
+const {
+  quote,
+  name,
+  role,
+  image,
+  backgroundVariant = 'light',
+} = Astro.props;
+
+const isDark = backgroundVariant === 'dark';
+---
+
+<section class={`animate-on-scroll py-16 md:py-24 ${isDark ? 'bg-[var(--color-surface)]' : 'bg-[var(--color-bg)]'}`}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+    {/* Dekoratives Anführungszeichen */}
+    <div
+      class="text-[120px] md:text-[160px] leading-none font-serif text-[var(--color-primary)] opacity-20 select-none -mb-12 md:-mb-16"
+      aria-hidden="true"
+    >
+      &ldquo;
+    </div>
+
+    <blockquote>
+      <p class={`text-2xl md:text-3xl font-medium leading-relaxed mb-10 ${isDark ? 'text-[var(--color-text)]' : 'text-[var(--color-text)]'}`}>
+        {quote}
+      </p>
+
+      {(name || role || image) && (
+        <footer class="flex items-center justify-center gap-4">
+          {image && (
+            <img
+              src={image.src}
+              alt={image.alt || ''}
+              class="w-12 h-12 rounded-full object-cover object-top flex-shrink-0"
+            />
+          )}
+          <div class="text-left">
+            {name && (
+              <p class={`text-sm font-semibold ${isDark ? 'text-[var(--color-text)]' : 'text-[var(--color-text)]'}`}>
+                {name}
+              </p>
+            )}
+            {role && (
+              <p class="text-sm text-[var(--color-text-muted)]">{role}</p>
+            )}
+          </div>
+        </footer>
+      )}
+    </blockquote>
+
+  </div>
+</section>

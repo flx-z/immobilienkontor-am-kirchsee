@@ -1,0 +1,63 @@
+---
+interface Props {
+  embedUrl: string;
+  height?: 'sm' | 'md' | 'lg' | 'auto';
+  headline?: string;
+  subline?: string;
+}
+
+const {
+  embedUrl,
+  height = 'md',
+  headline,
+  subline,
+} = Astro.props;
+
+const heightStyle = {
+  sm: 'height: 500px;',
+  md: 'height: 700px;',
+  lg: 'height: 900px;',
+  auto: 'min-height: 600px;',
+}[height];
+---
+
+<section class="animate-on-scroll py-16 md:py-24 bg-[var(--color-bg)]">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    {(headline || subline) && (
+      <div class="text-center mb-10">
+        {headline && (
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[var(--color-text)] mb-4">
+            {headline}
+          </h2>
+        )}
+        {subline && (
+          <p class="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">{subline}</p>
+        )}
+      </div>
+    )}
+
+    <div
+      class="rounded-xl overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)]"
+      style={heightStyle}
+    >
+      <iframe
+        src={embedUrl}
+        width="100%"
+        height="100%"
+        style="border: 0;"
+        loading="lazy"
+        title={headline ?? 'Buchungssystem'}
+        allow="payment"
+      >
+        <p class="p-8 text-center text-sm text-[var(--color-text-muted)]">
+          Das Buchungssystem konnte nicht geladen werden.
+          <a href={embedUrl} target="_blank" rel="noopener" class="text-[var(--color-primary)] underline ml-1">
+            Direkt öffnen →
+          </a>
+        </p>
+      </iframe>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,117 @@
+---
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  headline?: string;
+  subline?: string;
+  items: FAQItem[];
+  allowMultiple?: boolean;
+  backgroundVariant?: 'light' | 'dark';
+}
+
+const { headline, subline, items, allowMultiple = false, backgroundVariant = 'light' } = Astro.props;
+const isDark = backgroundVariant === 'dark';
+const uid = `faq-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<section class={`animate-on-scroll py-16 md:py-24 ${isDark ? 'bg-[var(--color-surface)]' : 'bg-[var(--color-bg)]'}`}>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    {(headline || subline) && (
+      <div class="text-center mb-10 md:mb-14">
+        {headline && (
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[var(--color-text)] mb-4">
+            {headline}
+          </h2>
+        )}
+        {subline && (
+          <p class="text-lg text-[var(--color-text-muted)]">{subline}</p>
+        )}
+      </div>
+    )}
+
+    <div id={uid} class="animate-stagger divide-y divide-[var(--color-border)]">
+      {items.map((item, i) => (
+        <div class="animate-item faq-item">
+          <button
+            type="button"
+            class="faq-trigger w-full flex items-center justify-between gap-4 py-4 text-left group"
+            aria-expanded="false"
+            aria-controls={`${uid}-answer-${i}`}
+            id={`${uid}-trigger-${i}`}
+          >
+            <span class="text-base font-semibold text-[var(--color-text)] group-hover:text-[var(--color-primary)] transition-colors">
+              {item.question}
+            </span>
+            {/* Plus/Minus Icon */}
+            <span class="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-primary)] transition-transform duration-200 faq-icon">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="currentColor">
+                <path class="faq-plus" d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                <path class="faq-minus hidden" d="M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              </svg>
+            </span>
+          </button>
+
+          <div
+            id={`${uid}-answer-${i}`}
+            role="region"
+            aria-labelledby={`${uid}-trigger-${i}`}
+            class="faq-answer overflow-hidden"
+            style="max-height: 0; transition: max-height 0.3s ease;"
+          >
+            <p class="pb-5 text-sm leading-relaxed text-[var(--color-text-muted)]">
+              {item.answer}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script define:vars={{ uid, allowMultiple }}>
+  const container = document.getElementById(uid);
+  if (!container) return;
+
+  const triggers = container.querySelectorAll('.faq-trigger');
+
+  function openItem(trigger) {
+    const answer = document.getElementById(trigger.getAttribute('aria-controls'));
+    if (!answer) return;
+    trigger.setAttribute('aria-expanded', 'true');
+    answer.style.maxHeight = answer.scrollHeight + 'px';
+    // Icon: plus → minus
+    trigger.querySelector('.faq-plus')?.classList.add('hidden');
+    trigger.querySelector('.faq-minus')?.classList.remove('hidden');
+    trigger.querySelector('.faq-icon')?.classList.add('border-[var(--color-primary)]', 'bg-[var(--color-primary)]/10');
+  }
+
+  function closeItem(trigger) {
+    const answer = document.getElementById(trigger.getAttribute('aria-controls'));
+    if (!answer) return;
+    trigger.setAttribute('aria-expanded', 'false');
+    answer.style.maxHeight = '0';
+    trigger.querySelector('.faq-plus')?.classList.remove('hidden');
+    trigger.querySelector('.faq-minus')?.classList.add('hidden');
+    trigger.querySelector('.faq-icon')?.classList.remove('border-[var(--color-primary)]', 'bg-[var(--color-primary)]/10');
+  }
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+
+      if (!allowMultiple) {
+        // Alle anderen schließen
+        triggers.forEach((t) => {
+          if (t !== trigger) closeItem(t);
+        });
+      }
+
+      isOpen ? closeItem(trigger) : openItem(trigger);
+    });
+  });
+</script>

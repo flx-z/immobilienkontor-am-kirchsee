@@ -1,0 +1,112 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Qualification {
+  icon?: string; // SVG path-String; wenn leer: check-Icon als Default
+  label: string;
+}
+
+interface Props {
+  kicker?: string;
+  headline: string;
+  text: string;
+  qualifications?: Qualification[];
+  cta?: {
+    label: string;
+    href: string;
+  };
+  image: {
+    src: ImageMetadata | string;
+    alt: string;
+  };
+  imagePosition?: 'left' | 'right';
+}
+
+const {
+  kicker,
+  headline,
+  text,
+  qualifications,
+  cta,
+  image,
+  imagePosition = 'left',
+} = Astro.props;
+
+const imageLeft = imagePosition === 'left';
+
+// Default: Check-Icon
+const defaultIconPath = `<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />`;
+---
+
+<section class="animate-on-scroll py-16 md:py-24 bg-[var(--color-bg)]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class={`flex flex-col ${imageLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-20`}>
+
+      {/* Bild */}
+      <div class="w-full lg:w-1/2 flex-shrink-0">
+        <div class="relative overflow-hidden rounded-md aspect-[4/5] lg:aspect-[3/4] max-h-[640px]">
+          {typeof image.src === 'string' ? (
+            image.src && <img src={image.src} alt={image.alt || ''} fetchpriority="high" class="absolute inset-0 w-full h-full object-cover" />
+          ) : (
+            <Image src={image.src} alt={image.alt || ''} widths={[400, 800, 1200]} formats={['webp', 'avif']} fetchpriority="high" class="absolute inset-0 w-full h-full object-cover" />
+          )}
+        </div>
+      </div>
+
+      {/* Text-Seite */}
+      <div class="w-full lg:w-1/2">
+
+        {kicker && (
+          <p class="text-sm font-medium tracking-widest uppercase text-[var(--color-secondary)] mb-4">
+            {kicker}
+          </p>
+        )}
+
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[var(--color-text)] mb-6 leading-tight">
+          {headline}
+        </h2>
+
+        <p class="text-lg leading-relaxed text-[var(--color-text-muted)] mb-8">
+          {text}
+        </p>
+
+        {/* Qualifikationen */}
+        {qualifications && qualifications.length > 0 && (
+          <ul class="flex flex-col gap-3 mb-10">
+            {qualifications.map((q) => (
+              <li class="flex items-start gap-3">
+                <span class="flex-shrink-0 w-5 h-5 mt-0.5 text-[var(--color-primary)]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-5 h-5"
+                    set:html={q.icon || defaultIconPath}
+                    aria-hidden="true"
+                  />
+                </span>
+                <span class="text-sm font-medium text-[var(--color-text)]">{q.label}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {cta && (
+          <a
+            href={cta.href}
+            class="inline-flex items-center px-8 py-4 text-base font-semibold bg-[var(--color-primary)] text-[var(--color-text-inverse)] rounded-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:brightness-110"
+          >
+            {cta.label}
+          </a>
+        )}
+
+      </div>
+
+    </div>
+
+  </div>
+</section>

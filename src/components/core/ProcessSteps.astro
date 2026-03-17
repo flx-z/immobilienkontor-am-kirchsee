@@ -1,0 +1,70 @@
+---
+interface Step {
+  number?: number;
+  title: string;
+  text: string;
+}
+
+interface Props {
+  headline?: string;
+  subline?: string;
+  steps: Step[];
+  backgroundVariant?: 'light' | 'dark';
+}
+
+const { headline, subline, steps, backgroundVariant = 'light' } = Astro.props;
+const isDark = backgroundVariant === 'dark';
+---
+
+<section class={`animate-on-scroll py-16 md:py-24 ${isDark ? 'bg-[var(--color-surface)]' : 'bg-[var(--color-bg)]'}`}>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    {(headline || subline) && (
+      <div class="text-center mb-12 md:mb-20">
+        {headline && (
+          <h2 class={`text-3xl md:text-4xl font-bold tracking-tight mb-4 ${isDark ? 'text-[var(--color-text)]' : 'text-[var(--color-text)]'}`}>
+            {headline}
+          </h2>
+        )}
+        {subline && (
+          <p class="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">{subline}</p>
+        )}
+      </div>
+    )}
+
+    <div class="animate-stagger relative flex flex-col md:flex-row md:items-start gap-0">
+
+      {/* Horizontale Verbindungslinie Desktop */}
+      <div class="hidden md:block absolute top-7 left-0 right-0 h-px bg-[var(--color-border)] z-0" aria-hidden="true"></div>
+
+      {steps.map((step, i) => (
+        <div class="animate-item animate-up relative flex md:flex-col items-start md:items-center gap-5 md:gap-4 flex-1">
+
+          {/* Vertikale Linie Mobile */}
+          {i < steps.length - 1 && (
+            <div class="md:hidden absolute left-[27px] top-14 bottom-0 w-px bg-[var(--color-border)] z-0" aria-hidden="true"></div>
+          )}
+
+          {/* Kreis */}
+          <div class="relative z-10 flex-shrink-0 w-14 h-14 rounded-full bg-[var(--color-primary)] flex items-center justify-center shadow-md">
+            <span class="text-lg font-bold text-[var(--color-text-inverse)] tabular-nums">
+              {step.number ?? i + 1}
+            </span>
+          </div>
+
+          {/* Text */}
+          <div class="md:text-center pb-10 md:pb-0">
+            <h3 class={`text-base font-semibold mb-2 ${isDark ? 'text-[var(--color-text)]' : 'text-[var(--color-text)]'}`}>
+              {step.title}
+            </h3>
+            <p class="text-sm leading-relaxed text-[var(--color-text-muted)]">
+              {step.text}
+            </p>
+          </div>
+
+        </div>
+      ))}
+
+    </div>
+  </div>
+</section>

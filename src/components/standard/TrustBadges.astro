@@ -1,0 +1,107 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+
+interface Badge {
+  icon:
+    | 'shield-check' | 'star' | 'users' | 'award' | 'check' | 'clock' | 'chart-bar' | 'lock'
+    | 'check-circle' | 'check-badge'
+    | 'beer' | 'car' | 'bike' | 'motorbike'
+    | 'home' | 'map-pin' | 'calendar' | 'briefcase' | 'truck' | 'wrench'
+    | 'scissors' | 'building' | 'camera' | 'chat' | 'document' | 'sparkles'
+    | 'face-smile' | 'finger-print' | 'pencil-square' | 'puzzle-piece'
+    | 'rocket' | 'trash'
+    | 'sun' | 'fire' | 'wifi' | 'euro' | 'paint-brush'
+    | 'academic-cap';
+  label: string;
+  value?: string;
+}
+
+interface Props {
+  headline?: string;
+  badges: Badge[];
+  layout?: 'row' | 'grid';
+}
+
+const {
+  headline,
+  badges,
+  layout = 'row',
+} = Astro.props;
+
+const ICONS_DIR = path.resolve('./src/assets/icons');
+const iconCache = new Map<Badge['icon'], string>();
+
+function normalizeIconSvg(svg: string): string {
+  return svg
+    .replace(/stroke="[^"]*"/g, 'stroke="currentColor"')
+    .replace(/stroke='[^']*'/g, "stroke='currentColor'")
+    .replace(/fill="(?!none)[^"]*"/g, 'fill="none"')
+    .replace(/fill='(?!none)[^']*'/g, "fill='none'");
+}
+
+function loadIcon(name: Badge['icon']): string {
+  const cached = iconCache.get(name);
+  if (cached !== undefined) return cached;
+
+  const iconPath = path.join(ICONS_DIR, `${name}.svg`);
+  if (!fs.existsSync(iconPath)) {
+    iconCache.set(name, '');
+    return '';
+  }
+
+  try {
+    const svg = normalizeIconSvg(fs.readFileSync(iconPath, 'utf-8'));
+    iconCache.set(name, svg);
+    return svg;
+  } catch {
+    iconCache.set(name, '');
+    return '';
+  }
+}
+---
+
+<section class="animate-on-scroll py-16 md:py-20 bg-[var(--color-surface)]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    {headline && (
+      <h2 class="text-center text-sm font-medium tracking-widest uppercase text-[var(--color-text-muted)] mb-10">
+        {headline}
+      </h2>
+    )}
+
+    <div
+      class={
+        layout === 'grid'
+          ? 'animate-stagger grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'
+          : 'animate-stagger flex flex-wrap justify-center gap-4 md:gap-6'
+      }
+    >
+      {badges.map((badge) => (
+        <div class={`animate-item animate-zoom flex flex-col items-center text-center gap-3 bg-[var(--color-bg)] border border-[var(--color-border)] rounded-sm p-6 ${layout === 'row' ? 'flex-1 min-w-[140px] max-w-[200px]' : ''}`}>
+
+          {/* Icon */}
+          <div
+            class="w-10 h-10 text-[var(--color-primary)] [&>svg]:w-full [&>svg]:h-full [&>svg]:block"
+            set:html={loadIcon(badge.icon)}
+            aria-hidden="true"
+          />
+
+          {/* Wert (optional, fett) */}
+          {badge.value && (
+            <span class="text-2xl font-bold text-[var(--color-text)] leading-none">
+              {badge.value}
+            </span>
+          )}
+
+          {/* Label */}
+          <span class="text-sm text-[var(--color-text-muted)] leading-snug">
+            {badge.label}
+          </span>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

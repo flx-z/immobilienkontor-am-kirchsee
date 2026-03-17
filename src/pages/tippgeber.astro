@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NavStandard from '../components/core/NavStandard.astro';
+import HeroCentered from '../components/core/HeroCentered.astro';
+import FeaturesGrid from '../components/core/FeaturesGrid.astro';
+import ContentParagraph from '../components/core/ContentParagraph.astro';
+import TrustBadges from '../components/standard/TrustBadges.astro';
+import CTABanner from '../components/core/CTABanner.astro';
+import FooterStandard from '../components/core/FooterStandard.astro';
+---
+<BaseLayout
+  title="Tippgeber-Programm – Immobilienkontor am Kirchsee | Preetz"
+  description="Empfehlen und profitieren: Stellen Sie den Kontakt zu einem Immobilienverkäufer her und erhalten Sie bei erfolgreichem Verkauf eine feste Prämie."
+>
+  <NavStandard
+    logo="/logo.svg"
+    logoAlt="Immobilienkontor am Kirchsee Logo"
+    logoHeight={48}
+    links={[
+      { label: "Start", href: "/" },
+      { label: "Leistungen", href: "/leistungen" },
+      { label: "Ihr Vorteil", href: "/ihr-vorteil" },
+      { label: "Über uns", href: "/ueber-uns" },
+      { label: "Tippgeber", href: "/tippgeber" },
+      { label: "Kontakt", href: "/kontakt" }
+    ]}
+    cta={{ text: "Tipp weitergeben", href: "/kontakt" }}
+  />
+
+  <HeroCentered
+    headline="Empfehlen und profitieren."
+    subline="Kennen Sie jemanden, der eine Immobilie verkaufen möchte? Stellen Sie den Kontakt her – und erhalten Sie bei erfolgreichem Verkauf eine feste Prämie."
+    primaryCta={{ text: "Kontakt herstellen", href: "/kontakt" }}
+    backgroundVariant="dark"
+  />
+
+  <FeaturesGrid
+    headline="So funktioniert das Tippgeber-Modell"
+    features={[
+      { icon: "chat", title: "Kontakt herstellen", text: "Sie kennen jemanden, der überlegt, seine Immobilie zu verkaufen? Stellen Sie uns einfach per E-Mail oder Telefon vor." },
+      { icon: "users", title: "Wir übernehmen", text: "Wir nehmen Kontakt auf, stellen unseren Ansatz vor und klären, ob wir helfen können – vollständig diskret und unverbindlich." },
+      { icon: "euro", title: "Prämie bei Erfolg", text: "Kommt es zum erfolgreichen Verkauf, erhalten Sie eine feste, vorab vereinbarte Tippgeber-Prämie – unkompliziert und zuverlässig." }
+    ]}
+    columns={3}
+    variant="cards"
+    backgroundVariant="light"
+  />
+
+  <ContentParagraph
+    kicker="Warum das Modell funktioniert"
+    headline="Organisches Netzwerk statt anonymer Reichweite."
+    text="Vertrauen entsteht durch persönliche Empfehlung. Das Tippgeber-Modell des Immobilienkontors am Kirchsee basiert auf genau diesem Prinzip: Personen aus dem lokalen Netzwerk, die einen potenziellen Verkäufer kennen, stellen den Erstkontakt her. Das ist oft wertvoller als jede Werbemaßnahme – weil Vertrauen bereits vorhanden ist. Für Sie als Tippgeber entsteht dabei kein Aufwand: Sie stellen lediglich den Kontakt her. Den Rest übernehmen wir."
+    backgroundVariant="dark"
+  />
+
+  <TrustBadges
+    badges={[
+      { icon: "check-circle", value: "Fest", label: "Vorab vereinbarte Prämie" },
+      { icon: "shield-check", value: "Diskret", label: "Vertrauliche Behandlung" },
+      { icon: "lightning", value: "Einfach", label: "Kein Aufwand für Sie" }
+    ]}
+    layout="row"
+  />
+
+  <CTABanner
+    headline="Kennen Sie einen potenziellen Verkäufer?"
+    subline="Kontaktieren Sie uns – wir besprechen die Details und vereinbaren die Prämie vorab."
+    primaryCta={{ label: "Jetzt Tipp weitergeben", href: "/kontakt" }}
+    backgroundVariant="dark"
+  />
+
+  <FooterStandard
+    logo={{ src: "/logo.svg", alt: "Immobilienkontor am Kirchsee Logo", height: 56 }}
+    description="Konsequent auf Ihrer Seite."
+    columns={[
+      {
+        headline: "Leistungen",
+        links: [
+          { label: "Immobilien verkaufen", href: "/leistungen" },
+          { label: "Ihr wirtschaftlicher Vorteil", href: "/ihr-vorteil" },
+          { label: "Tippgeber-Programm", href: "/tippgeber" }
+        ]
+      },
+      {
+        headline: "Unternehmen",
+        links: [
+          { label: "Über uns", href: "/ueber-uns" },
+          { label: "Kontakt", href: "/kontakt" }
+        ]
+      }
+    ]}
+    contact={{ address: "Lange Brückstraße 28, 24211 Preetz" }}
+    legalLinks={[
+      { label: "Impressum", href: "/impressum" },
+      { label: "Datenschutz", href: "/datenschutz" }
+    ]}
+    copyright="© 2026 Immobilienkontor am Kirchsee. Alle Rechte vorbehalten."
+  />
+</BaseLayout>

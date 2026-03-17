@@ -1,0 +1,56 @@
+---
+interface Props {
+  kicker?: string;
+  headline?: string;
+  headingLevel?: 1 | 2 | 3;
+  text: string;
+  align?: 'left' | 'center';
+  maxWidth?: 'sm' | 'md' | 'lg';
+  backgroundVariant?: 'light' | 'dark';
+}
+
+const {
+  kicker,
+  headline,
+  headingLevel = 2,
+  text,
+  align = 'center',
+  maxWidth = 'md',
+  backgroundVariant = 'light',
+} = Astro.props;
+
+const isDark = backgroundVariant === 'dark';
+const Tag = `h${headingLevel}` as 'h1' | 'h2' | 'h3';
+
+const maxWidthClass: Record<string, string> = {
+  sm: 'max-w-xl',   // ~600px
+  md: 'max-w-3xl',  // ~768px
+  lg: 'max-w-4xl',  // ~900px
+};
+
+const alignClass = align === 'center' ? 'text-center mx-auto' : 'text-left';
+---
+
+<section class={`animate-on-scroll py-16 md:py-24 ${isDark ? 'bg-[var(--color-surface)]' : 'bg-[var(--color-bg)]'}`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class={`${maxWidthClass[maxWidth]} ${alignClass}`}>
+
+      {kicker && (
+        <p class={`text-sm font-medium tracking-widest uppercase mb-4 ${isDark ? 'text-[var(--color-secondary)]' : 'text-[var(--color-secondary)]'}`}>
+          {kicker}
+        </p>
+      )}
+
+      {headline && (
+        <Tag class={`text-3xl md:text-4xl font-bold tracking-tight mb-6 leading-tight ${isDark ? 'text-[var(--color-text)]' : 'text-[var(--color-text)]'}`}>
+          {headline}
+        </Tag>
+      )}
+
+      <p class={`text-lg leading-relaxed ${isDark ? 'text-[var(--color-text-muted)]' : 'text-[var(--color-text-muted)]'}`}>
+        {text}
+      </p>
+
+    </div>
+  </div>
+</section>

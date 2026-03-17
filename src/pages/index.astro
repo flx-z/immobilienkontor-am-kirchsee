@@ -1,0 +1,160 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NavStandard from '../components/core/NavStandard.astro';
+import HeroCentered from '../components/core/HeroCentered.astro';
+import TrustBadges from '../components/standard/TrustBadges.astro';
+import FeaturesGrid from '../components/core/FeaturesGrid.astro';
+import ContentFullscreenImage from '../components/standard/ContentFullscreenImage.astro';
+import ProcessSteps from '../components/core/ProcessSteps.astro';
+import AboutSplit from '../components/core/AboutSplit.astro';
+import FAQAccordion from '../components/standard/FAQAccordion.astro';
+import CTABanner from '../components/core/CTABanner.astro';
+import FooterStandard from '../components/core/FooterStandard.astro';
+
+import heroImg from '../assets/images/hero_background.jpg';
+import fullscreenImg from '../assets/images/fullscreen_architektur.jpg';
+import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
+---
+<BaseLayout
+  title="Immobilien verkaufen in Preetz – Immobilienkontor am Kirchsee"
+  description="Immobilienkontor am Kirchsee: Ausschließlich auf Ihrer Seite als Verkäufer. Keine Käuferprovision, mehr Nachfrage, bessere Preise. Jetzt Erstgespräch vereinbaren."
+>
+  <NavStandard
+    logo="/logo.svg"
+    logoAlt="Immobilienkontor am Kirchsee Logo"
+    logoHeight={48}
+    links={[
+      { label: "Start", href: "/" },
+      { label: "Leistungen", href: "/leistungen" },
+      { label: "Ihr Vorteil", href: "/ihr-vorteil" },
+      { label: "Über uns", href: "/ueber-uns" },
+      { label: "Tippgeber", href: "/tippgeber" },
+      { label: "Kontakt", href: "/kontakt" }
+    ]}
+    cta={{ text: "Beratungsgespräch anfragen", href: "/kontakt" }}
+  />
+
+  <HeroCentered
+    kicker="Immobilienvermittlung Preetz & Kiel"
+    headline="Konsequent auf Ihrer Seite."
+    subline="Wir vertreten ausschließlich Ihre Interessen als Verkäufer – strukturiert, transparent und mit messbarem wirtschaftlichem Vorteil."
+    primaryCta={{ text: "Jetzt Beratung anfragen", href: "/kontakt" }}
+    secondaryCta={{ text: "Ihr Vorteil entdecken", href: "/ihr-vorteil" }}
+    backgroundImage={{ src: heroImg, alt: "Norddeutsche Seenlandschaft bei Preetz", overlayOpacity: 0.55 }}
+    backgroundVariant="dark"
+    primaryCtaVariant="primary"
+  />
+
+  <TrustBadges
+    badges={[
+      { icon: "check-badge", value: "100%", label: "Ausschließlich Verkäuferinteressen" },
+      { icon: "euro", value: "0€", label: "Käuferprovision entfällt" },
+      { icon: "map-pin", value: "Preetz", label: "Tiefe lokale Marktkenntnis" },
+      { icon: "shield-check", value: "Klar", label: "Keine Interessenkonflikte" }
+    ]}
+    layout="row"
+  />
+
+  <FeaturesGrid
+    headline="Was uns grundlegend unterscheidet"
+    subline="Vier Prinzipien, die jeden Schritt in unserem Verkaufsprozess bestimmen."
+    features={[
+      { icon: "shield-check", title: "Nur Ihre Interessen", text: "Wir arbeiten ausschließlich für Sie als Verkäufer. Keine Doppelmandate, keine versteckten Interessenkonflikte." },
+      { icon: "euro", title: "Käuferprovision entfällt", text: "Mehr finanzierungsfähige Käufer bedeuten mehr Nachfrage – und bessere Preise für Sie." },
+      { icon: "chart-bar", title: "Strategische Verkaufssteuerung", text: "Jeder Verkauf ist eine individuelle Strategie: Marktumfeld, Objekt, Zielgruppe und Timing abgestimmt." },
+      { icon: "check-circle", title: "Vollständige Transparenz", text: "Sie behalten jederzeit die Kontrolle. Entscheidungen werden gemeinsam und nachvollziehbar getroffen." },
+      { icon: "map-pin", title: "Lokale Verwurzelung", text: "Fokus auf Preetz, Kiel und Umgebung – persönliche Marktkenntnis, die über Plattformen hinausgeht." },
+      { icon: "users", title: "Tippgeber-Netzwerk", text: "Organisches Netzwachstum durch feste Prämien bei erfolgreich vermittelten Verkaufskontakten." }
+    ]}
+    columns={3}
+    variant="cards"
+    backgroundVariant="light"
+  />
+
+  <ContentFullscreenImage
+    image={{ src: fullscreenImg, alt: "Repräsentative Wohnimmobilie in der Region Preetz und Kiel" }}
+    headline="Mehr Nachfrage. Mehr Wettbewerb. Bessere Preise."
+    subline="Der Wegfall der Käuferprovision erweitert den Kreis finanzierungsfähiger Käufer messbar."
+    overlayOpacity={40}
+    contentAlign="center"
+    height="md"
+  />
+
+  <ProcessSteps
+    headline="Ihr Weg zum optimalen Verkaufsergebnis"
+    subline="Strukturiert, transparent und stets in enger Abstimmung mit Ihnen."
+    steps={[
+      { title: "Erstes Beratungsgespräch", text: "Wir analysieren gemeinsam Ihre Situation, Ihre Ziele und das Marktumfeld. Unverbindlich und auf Augenhöhe." },
+      { title: "Individuelle Verkaufsstrategie", text: "Auf Basis Ihrer Immobilie, der lokalen Nachfrage und dem richtigen Timing entwickeln wir eine maßgeschneiderte Strategie." },
+      { title: "Gezielte Vermarktung", text: "Wir sprechen finanzierungsfähige Käufer direkt an – ohne Provisionshürde für den Käufer, mit maximaler Reichweite für Sie." },
+      { title: "Transparente Entscheidungsfindung", text: "Jeder Schritt wird gemeinsam besprochen. Sie entscheiden – wir beraten, strukturieren und koordinieren." },
+      { title: "Erfolgreicher Abschluss", text: "Vom Kaufvertrag bis zur Übergabe begleiten wir Sie vollständig und sorgen für einen reibungslosen Abschluss." }
+    ]}
+    backgroundVariant="dark"
+  />
+
+  <AboutSplit
+    kicker="Unser Ansatz"
+    headline="Kein Makler – ein strategischer Partner."
+    text="Das Immobilienkontor am Kirchsee wurde gegründet, weil der Immobilienmarkt einen anderen Ansatz verdient. Einen, der konsequent auf der Seite des Verkäufers steht – ohne Kompromisse, ohne Interessenkonflikte. Marcel Ziebell vereint lokale Marktkenntnis mit einem strukturierten, wirtschaftlich durchdachten Vorgehen."
+    qualifications={[
+      { label: "Ausschließliche Vertretung der Verkäuferinteressen" },
+      { label: "Keine Käuferprovision – mehr finanzierungsfähige Käufer" },
+      { label: "Tiefe Marktkenntnis in Preetz, Kiel und Umgebung" },
+      { label: "Strategische Verkaufssteuerung statt reiner Vermittlung" }
+    ]}
+    cta={{ label: "Mehr über uns", href: "/ueber-uns" }}
+    image={{ src: portraitImg, alt: "Marcel Ziebell, Gründer Immobilienkontor am Kirchsee" }}
+    imagePosition="right"
+    backgroundVariant="light"
+  />
+
+  <FAQAccordion
+    headline="Häufig gestellte Fragen"
+    subline="Antworten auf die wichtigsten Fragen rund um unseren Ansatz und Ihr Verkaufsvorhaben."
+    items={[
+      { question: "Was bedeutet es, ausschließlich für den Verkäufer tätig zu sein?", answer: "Wir schließen explizit aus, gleichzeitig für Käufer tätig zu sein. Jede Entscheidung – von der Preisstrategie bis zur Verhandlungsführung – wird allein aus Ihrer Perspektive als Verkäufer getroffen." },
+      { question: "Warum fällt für Käufer keine Provision an?", answer: "Unser Provisionsmodell sieht vor, dass die Vergütung ausschließlich auf Verkäuferseite anfällt. Das senkt die Kaufnebenkosten für Käufer und erhöht damit die Zahl der finanzierungsfähigen Interessenten." },
+      { question: "Wie wirkt sich das Provisionsmodell auf meinen Verkaufspreis aus?", answer: "Mehr finanzierungsfähige Käufer bedeuten mehr Wettbewerb. Mehr Wettbewerb führt in der Regel zu besseren Preisen. Dieser Effekt wird von uns gezielt als strategisches Instrument eingesetzt." },
+      { question: "In welchen Regionen sind Sie tätig?", answer: "Unser Schwerpunkt liegt auf Preetz, Kiel und dem umliegenden Schleswig-Holstein. Unsere lokale Marktkenntnis und unser Netzwerk sind integraler Bestandteil unserer Dienstleistung." },
+      { question: "Was ist das Tippgeber-Modell?", answer: "Personen, die uns den Kontakt zu einem potenziellen Verkäufer herstellen, erhalten bei erfolgreichem Verkauf eine feste Prämie. So entsteht ein organisches Empfehlungsnetzwerk in der Region." }
+    ]}
+    backgroundVariant="light"
+  />
+
+  <CTABanner
+    headline="Bereit für einen wirtschaftlich optimierten Verkauf?"
+    subline="Vereinbaren Sie jetzt ein unverbindliches Erstgespräch mit Marcel Ziebell."
+    primaryCta={{ label: "Beratungsgespräch anfragen", href: "/kontakt" }}
+    secondaryCta={{ label: "Leistungen ansehen", href: "/leistungen" }}
+    backgroundVariant="dark"
+  />
+
+  <FooterStandard
+    logo={{ src: "/logo.svg", alt: "Immobilienkontor am Kirchsee Logo", height: 56 }}
+    description="Konsequent auf Ihrer Seite."
+    columns={[
+      {
+        headline: "Leistungen",
+        links: [
+          { label: "Immobilien verkaufen", href: "/leistungen" },
+          { label: "Ihr wirtschaftlicher Vorteil", href: "/ihr-vorteil" },
+          { label: "Tippgeber-Programm", href: "/tippgeber" }
+        ]
+      },
+      {
+        headline: "Unternehmen",
+        links: [
+          { label: "Über uns", href: "/ueber-uns" },
+          { label: "Kontakt", href: "/kontakt" }
+        ]
+      }
+    ]}
+    contact={{ address: "Lange Brückstraße 28, 24211 Preetz" }}
+    legalLinks={[
+      { label: "Impressum", href: "/impressum" },
+      { label: "Datenschutz", href: "/datenschutz" }
+    ]}
+    copyright="© 2026 Immobilienkontor am Kirchsee. Alle Rechte vorbehalten."
+  />
+</BaseLayout>

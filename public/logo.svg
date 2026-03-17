@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="150 60 600 330">
+
+  <!-- Roof: clean triangle outline -->
+  <polyline
+    points="370,148  450,72  530,148"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="1.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Left wall -->
+  <line x1="370" y1="148" x2="370" y2="212" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Right wall -->
+  <line x1="530" y1="148" x2="530" y2="212" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Roof ridge / chimney hint -->
+  <line x1="450" y1="92" x2="450" y2="148" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- Door -->
+  <rect x="432" y="180" width="36" height="32" rx="1"
+        fill="none" stroke="#FFFFFF" stroke-width="1.4" opacity="0.85"/>
+
+  <!-- Wave line 1 -->
+  <path
+    d="M 310,228  Q 370,210  430,228  Q 490,246  550,228  Q 590,216  610,220"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="1.6"
+    stroke-linecap="round"
+    opacity="0.9"
+  />
+  <!-- Wave line 2 -->
+  <path
+    d="M 300,242  Q 360,226  420,242  Q 480,258  540,242  Q 590,230  620,234"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="1"
+    stroke-linecap="round"
+    opacity="0.4"
+  />
+
+  <!-- "IMMOBILIENKONTOR" -->
+  <text
+    x="450"
+    y="330"
+    font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+    font-size="34"
+    font-weight="300"
+    letter-spacing="14"
+    fill="#FFFFFF"
+    text-anchor="middle"
+  >IMMOBILIENKONTOR</text>
+
+  <!-- "AM KIRCHSEE" -->
+  <text
+    x="450"
+    y="376"
+    font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+    font-size="20"
+    font-weight="300"
+    letter-spacing="12"
+    fill="#FFFFFF"
+    text-anchor="middle"
+    opacity="0.75"
+  >AM KIRCHSEE</text>
+
+</svg>

@@ -1,0 +1,88 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  image: { src: ImageMetadata | string; alt: string };
+  headline?: string;
+  subline?: string;
+  cta?: { label: string; href: string };
+  overlayOpacity?: 0 | 20 | 40 | 60;
+  contentAlign?: 'left' | 'center' | 'right';
+  height?: 'sm' | 'md' | 'lg' | 'fullscreen';
+}
+
+const {
+  image,
+  headline,
+  subline,
+  cta,
+  overlayOpacity = 0,
+  contentAlign = 'center',
+  height = 'md',
+} = Astro.props;
+
+const heightClass: Record<string, string> = {
+  sm: 'h-[400px]',
+  md: 'h-[600px]',
+  lg: 'h-[800px]',
+  fullscreen: 'h-screen',
+};
+
+const overlayClass: Record<number, string> = {
+  0:  'bg-black/0',
+  20: 'bg-black/20',
+  40: 'bg-black/40',
+  60: 'bg-black/60',
+};
+
+const alignClass: Record<string, string> = {
+  left:   'items-start text-left',
+  center: 'items-center text-center',
+  right:  'items-end text-right',
+};
+
+const hasContent = headline || subline || cta;
+---
+
+<div class={`animate-on-scroll relative w-full overflow-hidden ${heightClass[height]}`}>
+
+  {/* Hintergrundbild */}
+  {typeof image.src === 'string' ? (
+    image.src && <img src={image.src} alt={image.alt || ''} class="absolute inset-0 w-full h-full object-cover" />
+  ) : (
+    <Image src={image.src} alt={image.alt || ''} widths={[800, 1200, 1920]} formats={['webp', 'avif']} class="absolute inset-0 w-full h-full object-cover" />
+  )}
+
+  {/* Overlay */}
+  {overlayOpacity > 0 && (
+    <div class={`absolute inset-0 ${overlayClass[overlayOpacity]}`} aria-hidden="true"></div>
+  )}
+
+  {/* Inhalt – nur rendern wenn vorhanden */}
+  {hasContent && (
+    <div class={`animate-stagger relative z-10 h-full flex flex-col justify-center px-6 sm:px-12 lg:px-20 ${alignClass[contentAlign]}`}>
+      <div class={`max-w-2xl ${contentAlign === 'center' ? 'mx-auto' : ''}`}>
+        {headline && (
+          <h2 class="animate-item animate-up text-3xl md:text-5xl font-bold tracking-tight text-white mb-4 drop-shadow-md">
+            {headline}
+          </h2>
+        )}
+        {subline && (
+          <p class="animate-item animate-up text-lg md:text-xl text-white/90 mb-8 drop-shadow">
+            {subline}
+          </p>
+        )}
+        {cta && (
+          <a
+            href={cta.href}
+            class="animate-item animate-up inline-flex items-center px-8 py-4 text-base font-semibold rounded-sm bg-[var(--color-primary)] text-[var(--color-text-inverse)] hover:brightness-110 hover:-translate-y-0.5 transition-all duration-200 shadow-lg"
+          >
+            {cta.label}
+          </a>
+        )}
+      </div>
+    </div>
+  )}
+
+</div>

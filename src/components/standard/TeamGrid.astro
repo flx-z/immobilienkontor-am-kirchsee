@@ -1,0 +1,71 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Member {
+  image: { src: ImageMetadata | string; alt: string };
+  name: string;
+  role: string;
+  bio?: string;
+}
+
+interface Props {
+  headline?: string;
+  subline?: string;
+  members: Member[];
+  columns?: 3 | 4;
+}
+
+const { headline, subline, members, columns = 3 } = Astro.props;
+
+const colClass = columns === 4
+  ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'
+  : 'grid-cols-2 sm:grid-cols-2 lg:grid-cols-3';
+---
+
+<section class="animate-on-scroll py-16 md:py-24 bg-[var(--color-bg)]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    {(headline || subline) && (
+      <div class="text-center mb-12 md:mb-16">
+        {headline && (
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[var(--color-text)] mb-4">
+            {headline}
+          </h2>
+        )}
+        {subline && (
+          <p class="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
+            {subline}
+          </p>
+        )}
+      </div>
+    )}
+
+    <div class={`animate-stagger grid ${colClass} gap-6 md:gap-8`}>
+      {members.map((member) => (
+        <div class="animate-item animate-up group flex flex-col rounded-sm overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl">
+
+          {/* Foto – quadratisch */}
+          <div class="aspect-square overflow-hidden">
+            {typeof member.image.src === 'string' ? (
+              member.image.src && <img src={member.image.src} alt={member.image.alt || ''} draggable="false" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" />
+            ) : (
+              <Image src={member.image.src} alt={member.image.alt || ''} widths={[300, 500, 800]} formats={['webp', 'avif']} draggable="false" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" />
+            )}
+          </div>
+
+          {/* Info */}
+          <div class="flex flex-col gap-1 p-5">
+            <p class="text-base font-semibold text-[var(--color-text)]">{member.name}</p>
+            <p class="text-sm font-medium text-[var(--color-primary)]">{member.role}</p>
+            {member.bio && (
+              <p class="text-sm text-[var(--color-text-muted)] mt-2 leading-relaxed">{member.bio}</p>
+            )}
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

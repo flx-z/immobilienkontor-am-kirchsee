@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NavStandard from '../components/core/NavStandard.astro';
+import FooterStandard from '../components/core/FooterStandard.astro';
+---
+<BaseLayout
+  title="Impressum – Immobilienkontor am Kirchsee | Preetz"
+  description="Impressum des Immobilienkontors am Kirchsee, Lange Brückstraße 28, 24211 Preetz. Alle Angaben gemäß § 5 TMG."
+>
+  <NavStandard
+    logo="/logo.svg"
+    logoAlt="Immobilienkontor am Kirchsee Logo"
+    logoHeight={48}
+    links={[
+      { label: "Start", href: "/" },
+      { label: "Leistungen", href: "/leistungen" },
+      { label: "Ihr Vorteil", href: "/ihr-vorteil" },
+      { label: "Über uns", href: "/ueber-uns" },
+      { label: "Tippgeber", href: "/tippgeber" },
+      { label: "Kontakt", href: "/kontakt" }
+    ]}
+    cta={{ text: "Beratungsgespräch anfragen", href: "/kontakt" }}
+  />
+
+  <section class="py-16 md:py-24 bg-[var(--color-bg)]">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-[var(--color-text)] mb-8">Impressum</h1>
+      <div class="prose prose-lg text-[var(--color-text-muted)]">
+        <p>[IMPRESSUM TEXT NICHT IM RESEARCH GEFUNDEN]</p>
+      </div>
+    </div>
+  </section>
+
+  <FooterStandard
+    logo={{ src: "/logo.svg", alt: "Immobilienkontor am Kirchsee Logo", height: 56 }}
+    description="Konsequent auf Ihrer Seite."
+    columns={[
+      {
+        headline: "Leistungen",
+        links: [
+          { label: "Immobilien verkaufen", href: "/leistungen" },
+          { label: "Ihr wirtschaftlicher Vorteil", href: "/ihr-vorteil" },
+          { label: "Tippgeber-Programm", href: "/tippgeber" }
+        ]
+      },
+      {
+        headline: "Unternehmen",
+        links: [
+          { label: "Über uns", href: "/ueber-uns" },
+          { label: "Kontakt", href: "/kontakt" }
+        ]
+      }
+    ]}
+    contact={{ address: "Lange Brückstraße 28, 24211 Preetz" }}
+    legalLinks={[
+      { label: "Impressum", href: "/impressum" },
+      { label: "Datenschutz", href: "/datenschutz" }
+    ]}
+    copyright="© 2026 Immobilienkontor am Kirchsee. Alle Rechte vorbehalten."
+  />
+</BaseLayout>

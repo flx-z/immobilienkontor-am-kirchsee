@@ -1,0 +1,161 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  kicker?: string;
+  headline: string;
+  subline: string;
+  headingLevel?: 1 | 2 | 3;
+  primaryCta: {
+    text: string;
+    href: string;
+  };
+  secondaryCta?: {
+    text: string;
+    href: string;
+  };
+  backgroundVariant?: 'light' | 'dark';
+  /**
+   * Optionales Hintergrundbild.
+   * - src: Bildpfad/URL (string) oder importiertes Bild (ImageMetadata)
+   * - overlayOpacity: 0–1, wie stark das Bild abgedunkelt/aufgehellt wird
+   *   (0 = Bild voll sichtbar, 1 = Bild komplett verdeckt)
+   *   Default: 0.55 — das Bild ist dezent sichtbar, Text klar lesbar
+   */
+  backgroundImage?: {
+    src: ImageMetadata | string;
+    alt?: string;
+    overlayOpacity?: number;
+  };
+  primaryCtaVariant?: 'primary' | 'secondary';
+}
+
+const {
+  kicker,
+  headline,
+  subline,
+  primaryCta,
+  secondaryCta,
+  backgroundVariant = 'light',
+  backgroundImage,
+  primaryCtaVariant,
+} = Astro.props;
+
+const isDark = backgroundVariant === 'dark';
+const hasImage = !!backgroundImage;
+
+// Mit Bild: immer dunkler Overlay → Texte immer in text-inverse
+const textOnImage = hasImage;
+const overlayOpacity = backgroundImage?.overlayOpacity ?? 0.55;
+
+// Overlay-Farbe: Bei light-Variante heller Overlay (weiß), bei dark dunkler Overlay
+const overlayColor = isDark
+  ? `rgba(0,0,0,${overlayOpacity})`
+  : `rgba(255,255,255,${overlayOpacity})`;
+---
+
+<section
+  class={`animate-on-scroll relative py-24 md:py-32 lg:py-40 overflow-hidden ${
+    !hasImage
+      ? isDark
+        ? 'bg-[var(--color-primary)]'
+        : 'bg-[var(--color-bg)]'
+      : ''
+  }`}
+>
+  {/* Hintergrundbild */}
+  {hasImage && (
+    typeof backgroundImage!.src === 'string' ? (
+      backgroundImage!.src && <img src={backgroundImage!.src} alt={backgroundImage!.alt || ''} class="absolute inset-0 w-full h-full object-cover z-0" />
+    ) : (
+      <Image src={backgroundImage!.src} alt={backgroundImage!.alt || ''} widths={[800, 1200, 1920]} formats={['webp', 'avif']} class="absolute inset-0 w-full h-full object-cover z-0" />
+    )
+  )}
+  {/* Overlay – nur wenn Hintergrundbild vorhanden */}
+  {hasImage && (
+    <div
+      class="absolute inset-0 pointer-events-none"
+      style={`background-color: ${overlayColor};`}
+      aria-hidden="true"
+    />
+  )}
+
+  <div class="animate-stagger relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+    {/* Kicker */}
+    {kicker && (
+      <div class={`animate-item animate-up inline-block mb-4 px-4 py-1.5 rounded-full ${
+        textOnImage
+          ? 'bg-black/40 backdrop-blur-sm'
+          : ''
+      }`}>
+        <h1
+          class={`text-sm font-medium tracking-widest uppercase ${
+            textOnImage
+              ? 'text-white'
+              : 'text-[var(--color-secondary)]'
+          }`}
+        >
+          {kicker}
+        </h1>
+      </div>
+    )}
+
+    {/* Headline */}
+    <h2
+      class={`animate-item animate-up text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6 ${
+        textOnImage || isDark
+          ? 'text-[var(--color-text-inverse)]'
+          : 'text-[var(--color-text)]'
+      }`}
+    >
+      {headline}
+    </h2>
+
+    {/* Subline */}
+    <p
+      class={`animate-item animate-up text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-10 ${
+        textOnImage || isDark
+          ? 'text-[var(--color-text-inverse)] opacity-85'
+          : 'text-[var(--color-text-muted)]'
+      }`}
+    >
+      {subline}
+    </p>
+
+    {/* CTA Buttons */}
+    <div class="animate-item animate-up flex flex-col sm:flex-row gap-4 justify-center items-center">
+
+      <a
+        href={primaryCta.href}
+        class={`w-full sm:w-auto text-center px-8 py-4 text-base font-semibold rounded-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:brightness-110 ${
+          primaryCtaVariant === 'primary'
+            ? 'bg-[var(--color-primary)] text-[var(--color-text-inverse)]'
+            : primaryCtaVariant === 'secondary'
+              ? 'bg-[var(--color-secondary)] text-[var(--color-text-inverse)]'
+              : isDark
+                ? 'bg-[var(--color-secondary)] text-[var(--color-text-inverse)]'
+                : 'bg-[var(--color-primary)] text-[var(--color-text-inverse)]'
+        }`}
+      >
+        {primaryCta.text}
+      </a>
+
+      {/* Secondary CTA (optional) */}
+      {secondaryCta && (
+        <a
+          href={secondaryCta.href}
+          class={`w-full sm:w-auto text-center px-8 py-4 text-base font-semibold rounded-sm border transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
+            textOnImage || isDark
+              ? 'border-[var(--color-text-inverse)] text-[var(--color-text-inverse)] hover:bg-[var(--color-text-inverse)] hover:text-[var(--color-primary)]'
+              : 'border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-[var(--color-text-inverse)]'
+          }`}
+        >
+          {secondaryCta.text}
+        </a>
+      )}
+
+    </div>
+  </div>
+</section>

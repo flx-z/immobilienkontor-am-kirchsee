@@ -1,0 +1,152 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface GalleryImage {
+  src: ImageMetadata | string;
+  alt: string;
+}
+
+interface Props {
+  headline?: string;
+  subline?: string;
+  images: GalleryImage[]; // 3–4 Bilder empfohlen
+  lightbox?: boolean;
+}
+
+const {
+  headline,
+  subline,
+  images,
+  lightbox = true,
+} = Astro.props;
+
+// Erstes Bild = groß links, Rest = kleine rechts
+const [main, ...rest] = images;
+const uid = `gallerylarge-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<section class="animate-on-scroll py-16 md:py-24 bg-[var(--color-bg)]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    {(headline || subline) && (
+      <div class="text-center mb-10 md:mb-14">
+        {headline && (
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[var(--color-text)] mb-4">
+            {headline}
+          </h2>
+        )}
+        {subline && (
+          <p class="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">{subline}</p>
+        )}
+      </div>
+    )}
+
+    <div id={uid} class="animate-stagger flex flex-col md:flex-row gap-2 md:gap-3 h-auto md:h-[520px]">
+
+      {/* Großes Bild links (2/3) */}
+      <button
+        class={`animate-item animate-left group relative w-full md:w-2/3 flex-shrink-0 overflow-hidden rounded-sm aspect-[16/10] md:aspect-auto md:h-full ${lightbox ? 'cursor-pointer' : 'cursor-default'}`}
+        data-lightbox-trigger={lightbox ? '' : undefined}
+        data-index="0"
+        type="button"
+        aria-label={lightbox ? `Bild vergrößern: ${main.alt}` : undefined}
+      >
+        {typeof main.src === 'string' ? (
+          main.src && <img src={main.src} alt={main.alt || ''} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+        ) : (
+          <Image src={main.src} alt={main.alt || ''} widths={[600, 900, 1200]} formats={['webp', 'avif']} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+        )}
+        {lightbox && (
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+        )}
+      </button>
+
+      {/* Kleine Bilder rechts (1/3), gleichmäßig gestapelt */}
+      {rest.length > 0 && (
+        <div class="grid grid-cols-2 gap-2 md:flex md:flex-col md:gap-3 w-full md:w-1/3 md:h-full">
+          {rest.map((img, i) => (
+            <button
+              class={`animate-item animate-right group relative overflow-hidden rounded-sm aspect-[16/10] md:aspect-auto md:flex-1 ${lightbox ? 'cursor-pointer' : 'cursor-default'}`}
+              data-lightbox-trigger={lightbox ? '' : undefined}
+              data-index={i + 1}
+              type="button"
+              aria-label={lightbox ? `Bild vergrößern: ${img.alt}` : undefined}
+            >
+              {typeof img.src === 'string' ? (
+                img.src && <img src={img.src} alt={img.alt || ''} loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              ) : (
+                <Image src={img.src} alt={img.alt || ''} widths={[300, 500, 800]} formats={['webp', 'avif']} loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              )}
+              {lightbox && (
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+              )}
+            </button>
+          ))}
+        </div>
+      )}
+
+    </div>
+
+  </div>
+</section>
+
+{lightbox && (
+  <div
+    id={`${uid}-lightbox`}
+    class="fixed inset-0 z-50 hidden bg-black/90 items-center justify-center"
+    aria-modal="true"
+    role="dialog"
+  >
+    <button id={`${uid}-close`} class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-white hover:text-[var(--color-primary)]" aria-label="Schließen" type="button">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <button id={`${uid}-prev`} class="absolute left-3 md:left-6 w-12 h-12 flex items-center justify-center text-white hover:text-[var(--color-primary)]" aria-label="Vorheriges" type="button">
+      <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+    </button>
+    <img id={`${uid}-img`} src="" alt="" class="max-h-[90vh] max-w-[90vw] object-contain rounded-sm shadow-2xl" />
+    <button id={`${uid}-next`} class="absolute right-3 md:right-6 w-12 h-12 flex items-center justify-center text-white hover:text-[var(--color-primary)]" aria-label="Nächstes" type="button">
+      <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+    </button>
+    <p id={`${uid}-counter`} class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/60 text-sm"></p>
+  </div>
+)}
+
+<script define:vars={{ uid, lightbox, images: images.map(img => ({ src: typeof img.src === 'string' ? img.src : img.src.src, alt: img.alt })) }}>
+  if (!lightbox) return;
+  const gallery = document.getElementById(uid);
+  const lightboxEl = document.getElementById(`${uid}-lightbox`);
+  const imgEl = document.getElementById(`${uid}-img`);
+  const counter = document.getElementById(`${uid}-counter`);
+  if (!gallery || !lightboxEl || !imgEl) return;
+
+  let current = 0;
+  const open = (i) => {
+    current = ((i % images.length) + images.length) % images.length;
+    imgEl.src = images[current].src;
+    imgEl.alt = images[current].alt;
+    if (counter) counter.textContent = `${current + 1} / ${images.length}`;
+    lightboxEl.classList.remove('hidden');
+    lightboxEl.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  };
+  const close = () => {
+    lightboxEl.classList.add('hidden');
+    lightboxEl.classList.remove('flex');
+    document.body.style.overflow = '';
+  };
+
+  gallery.querySelectorAll('[data-lightbox-trigger]').forEach((btn) => {
+    btn.addEventListener('click', () => open(parseInt(btn.dataset.index ?? '0')));
+  });
+  document.getElementById(`${uid}-close`)?.addEventListener('click', close);
+  document.getElementById(`${uid}-prev`)?.addEventListener('click', () => open(current - 1));
+  document.getElementById(`${uid}-next`)?.addEventListener('click', () => open(current + 1));
+  lightboxEl.addEventListener('click', (e) => { if (e.target === lightboxEl) close(); });
+  document.addEventListener('keydown', (e) => {
+    if (lightboxEl.classList.contains('hidden')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') open(current - 1);
+    if (e.key === 'ArrowRight') open(current + 1);
+  });
+</script>

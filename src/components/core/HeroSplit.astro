@@ -1,0 +1,113 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  kicker?: string;
+  headline: string;
+  subline: string;
+  headingLevel?: 1 | 2 | 3;
+  primaryCta: {
+    label: string;
+    href: string;
+  };
+  secondaryCta?: {
+    label: string;
+    href: string;
+  };
+  image: {
+    src: ImageMetadata | string;
+    alt: string;
+  };
+  imagePosition?: 'left' | 'right';
+  imageObjectPosition?: string;   // z.B. 'center', 'top', 'right center'
+  backgroundVariant?: 'light' | 'dark';
+}
+
+const {
+  kicker,
+  headline,
+  subline,
+  primaryCta,
+  secondaryCta,
+  image,
+  imagePosition = 'right',
+  imageObjectPosition = 'center',
+  backgroundVariant = 'light',
+} = Astro.props;
+
+const isDark = backgroundVariant === 'dark';
+const imageRight = imagePosition === 'right';
+---
+
+<section
+  class={`animate-on-scroll overflow-hidden ${isDark ? 'bg-[var(--color-primary)]' : 'bg-[var(--color-bg)]'}`}
+>
+  <div class={`flex flex-col ${imageRight ? 'lg:flex-row' : 'lg:flex-row-reverse'} min-h-[560px] lg:min-h-[640px]`}>
+
+    {/* Text-Seite */}
+    <div class="animate-stagger order-last lg:order-none w-full lg:w-1/2 flex items-center py-16 md:py-20 lg:py-24">
+      <div class="w-full max-w-xl mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
+
+        {/* Kicker */}
+        {kicker && (
+          <h1 class="animate-item animate-up text-sm font-medium tracking-widest uppercase mb-4 text-[var(--color-secondary)]">
+            {kicker}
+          </h1>
+        )}
+
+        {/* Headline */}
+        <h2 class={`animate-item animate-up text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight mb-6 ${
+          isDark ? 'text-[var(--color-text-inverse)]' : 'text-[var(--color-text)]'
+        }`}>
+          {headline}
+        </h2>
+
+        {/* Subline */}
+        <p class={`animate-item animate-up text-lg leading-relaxed mb-10 ${
+          isDark ? 'text-[var(--color-text-inverse)] opacity-80' : 'text-[var(--color-text-muted)]'
+        }`}>
+          {subline}
+        </p>
+
+        {/* CTAs */}
+        <div class="animate-item animate-up flex flex-col sm:flex-row gap-4">
+          <a
+            href={primaryCta.href}
+            class={`w-full sm:w-auto text-center px-8 py-4 text-base font-semibold rounded-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:brightness-110 ${
+              isDark
+                ? 'bg-[var(--color-secondary)] text-[var(--color-text-inverse)]'
+                : 'bg-[var(--color-primary)] text-[var(--color-text-inverse)]'
+            }`}
+          >
+            {primaryCta.label}
+          </a>
+
+          {secondaryCta && (
+            <a
+              href={secondaryCta.href}
+              class={`w-full sm:w-auto text-center px-8 py-4 text-base font-semibold rounded-sm border transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
+                isDark
+                  ? 'border-[var(--color-text-inverse)] text-[var(--color-text-inverse)] hover:bg-[var(--color-text-inverse)] hover:text-[var(--color-primary)]'
+                  : 'border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-[var(--color-text-inverse)]'
+              }`}
+            >
+              {secondaryCta.label}
+            </a>
+          )}
+        </div>
+
+      </div>
+    </div>
+
+    {/* Bild-Seite – füllt volle Höhe, object-cover */}
+    <div class={`animate-item ${imageRight ? 'animate-right' : 'animate-left'} order-first lg:order-none w-full lg:w-1/2 min-h-[300px] lg:min-h-0 relative`}>
+      {typeof image.src === 'string' ? (
+        image.src && <img src={image.src} alt={image.alt || ''} fetchpriority="high" class="absolute inset-0 w-full h-full object-cover" style={`object-position: ${imageObjectPosition}`} />
+      ) : (
+        <Image src={image.src} alt={image.alt || ''} widths={[600, 900, 1200]} formats={['webp', 'avif']} fetchpriority="high" class="absolute inset-0 w-full h-full object-cover" style={`object-position: ${imageObjectPosition}`} />
+      )}
+    </div>
+
+  </div>
+</section>

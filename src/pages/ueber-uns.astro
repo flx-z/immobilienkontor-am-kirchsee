@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NavStandard from '../components/core/NavStandard.astro';
+import PageHeader from '../components/utility/PageHeader.astro';
+import AboutSplit from '../components/core/AboutSplit.astro';
+import ContentParagraph from '../components/core/ContentParagraph.astro';
+import FeaturesGrid from '../components/core/FeaturesGrid.astro';
+import CTABanner from '../components/core/CTABanner.astro';
+import FooterStandard from '../components/core/FooterStandard.astro';
+
+import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
+---
+<BaseLayout
+  title="Über uns – Immobilienkontor am Kirchsee | Preetz & Kiel"
+  description="Marcel Ziebell und das Immobilienkontor am Kirchsee stehen für konsequente Verkäufervertretung in Preetz und Kiel. Lernen Sie unseren Ansatz kennen."
+>
+  <NavStandard
+    logo="/logo.svg"
+    logoAlt="Immobilienkontor am Kirchsee Logo"
+    logoHeight={48}
+    links={[
+      { label: "Start", href: "/" },
+      { label: "Leistungen", href: "/leistungen" },
+      { label: "Ihr Vorteil", href: "/ihr-vorteil" },
+      { label: "Über uns", href: "/ueber-uns" },
+      { label: "Tippgeber", href: "/tippgeber" },
+      { label: "Kontakt", href: "/kontakt" }
+    ]}
+    cta={{ text: "Beratungsgespräch anfragen", href: "/kontakt" }}
+  />
+
+  <PageHeader
+    headline="Über uns"
+    subline="Das Immobilienkontor am Kirchsee – gegründet für einen konsequent anderen Ansatz."
+    breadcrumbs={[
+      { label: "Start", href: "/" },
+      { label: "Über uns" }
+    ]}
+    backgroundVariant="light"
+  />
+
+  <AboutSplit
+    kicker="Der Gründer"
+    headline="Marcel Ziebell – Ihr strategischer Partner."
+    text="Marcel Ziebell gründete das Immobilienkontor am Kirchsee mit einer klaren Überzeugung: Immobilienverkäufer verdienen eine Vertretung, die ausschließlich ihre Interessen im Blick hat. Sein Ansatz verbindet tiefe lokale Marktkenntnis in Preetz, Kiel und Umgebung mit einem strukturierten, wirtschaftlich durchdachten Vorgehen – transparent, ohne Interessenkonflikte und mit messbarem Ergebnis."
+    qualifications={[
+      { label: "Ausschließliche Vertretung der Verkäuferinteressen" },
+      { label: "Strategische Verkaufssteuerung statt reiner Vermittlung" },
+      { label: "Tiefe lokale Marktkenntnis in Preetz und Kiel" },
+      { label: "Vollständige Transparenz in allen Prozessschritten" }
+    ]}
+    cta={{ label: "Kontakt aufnehmen", href: "/kontakt" }}
+    image={{ src: portraitImg, alt: "Marcel Ziebell, Gründer des Immobilienkontors am Kirchsee, am Schreibtisch mit Blick auf den See" }}
+    imagePosition="right"
+    backgroundVariant="light"
+  />
+
+  <ContentParagraph
+    kicker="Unser Ansatz"
+    headline="Eine neue Art der Immobilienvermittlung."
+    text="Das Immobilienkontor am Kirchsee steht für eine bewusst andere Struktur: Während viele Maklermodelle historisch gewachsen sind und sowohl Käufer als auch Verkäufer bedienen, vertreten wir ausschließlich die Interessen des Verkäufers. Dieser Fokus ermöglicht eine klare Ausrichtung in der Vermarktung, in der Kommunikation und in der gesamten Strategie. Jede Entscheidung wird aus der Perspektive des Verkäufers getroffen – nachvollziehbar, strukturiert und ohne versteckte Interessen."
+    backgroundVariant="dark"
+  />
+
+  <FeaturesGrid
+    headline="Was uns antreibt"
+    features={[
+      { icon: "check-badge", title: "Interessenklarheit", text: "Keine Doppelmandate, keine Graubereiche. Wir wissen, für wen wir arbeiten – und handeln konsequent danach." },
+      { icon: "chart-bar", title: "Wirtschaftliche Vernunft", text: "Jeder Schritt im Verkaufsprozess wird auf seinen wirtschaftlichen Nutzen für den Verkäufer geprüft." },
+      { icon: "lock", title: "Transparenz", text: "Alle Informationen, alle Schritte, alle Entscheidungen – offen kommuniziert und gemeinsam getroffen." },
+      { icon: "map-pin", title: "Lokale Verwurzelung", text: "Preetz, Kiel und Umgebung sind kein Vertriebsgebiet – sondern unser Zuhause und unser Netzwerk." },
+      { icon: "search", title: "Strategisches Denken", text: "Kein Verkauf ist wie der andere. Wir entwickeln für jedes Objekt eine maßgeschneiderte Strategie." },
+      { icon: "heart", title: "Echter Mehrwert", text: "Unser Ziel ist nicht die Vermittlung an sich – sondern das bestmögliche wirtschaftliche Ergebnis für Sie." }
+    ]}
+    columns={3}
+    variant="flat"
+    backgroundVariant="light"
+  />
+
+  <CTABanner
+    headline="Überzeugen Sie sich persönlich."
+    subline="Vereinbaren Sie ein unverbindliches Erstgespräch mit Marcel Ziebell."
+    primaryCta={{ label: "Jetzt Kontakt aufnehmen", href: "/kontakt" }}
+    backgroundVariant="dark"
+  />
+
+  <FooterStandard
+    logo={{ src: "/logo.svg", alt: "Immobilienkontor am Kirchsee Logo", height: 56 }}
+    description="Konsequent auf Ihrer Seite."
+    columns={[
+      {
+        headline: "Leistungen",
+        links: [
+          { label: "Immobilien verkaufen", href: "/leistungen" },
+          { label: "Ihr wirtschaftlicher Vorteil", href: "/ihr-vorteil" },
+          { label: "Tippgeber-Programm", href: "/tippgeber" }
+        ]
+      },
+      {
+        headline: "Unternehmen",
+        links: [
+          { label: "Über uns", href: "/ueber-uns" },
+          { label: "Kontakt", href: "/kontakt" }
+        ]
+      }
+    ]}
+    contact={{ address: "Lange Brückstraße 28, 24211 Preetz" }}
+    legalLinks={[
+      { label: "Impressum", href: "/impressum" },
+      { label: "Datenschutz", href: "/datenschutz" }
+    ]}
+    copyright="© 2026 Immobilienkontor am Kirchsee. Alle Rechte vorbehalten."
+  />
+</BaseLayout>

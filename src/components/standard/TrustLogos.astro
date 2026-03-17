@@ -1,0 +1,45 @@
+---
+interface Logo {
+  src: string;
+  alt: string;
+}
+
+interface Props {
+  headline?: string;
+  logos: Logo[];
+  grayscale?: boolean;
+}
+
+const {
+  headline,
+  logos,
+  grayscale = true,
+} = Astro.props;
+---
+
+<section class="animate-on-scroll py-12 md:py-16 bg-[var(--color-surface)]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    {headline && (
+      <p class="text-center text-sm font-medium tracking-widest uppercase text-[var(--color-text-muted)] mb-10">
+        {headline}
+      </p>
+    )}
+
+    <div class="animate-stagger flex flex-wrap items-center justify-center gap-8 md:gap-12 lg:gap-16">
+      {logos.map((logo) => (
+        <div class="animate-item animate-zoom flex-shrink-0">
+          <img
+            src={logo.src}
+            alt={logo.alt || ''}
+            draggable="false"
+            class={`h-10 w-auto max-w-[160px] object-contain transition-all duration-300 select-none ${
+              grayscale ? 'grayscale opacity-50 hover:grayscale-0 hover:opacity-100' : ''
+            }`}
+          />
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

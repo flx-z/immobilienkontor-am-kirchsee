@@ -1,0 +1,122 @@
+---
+interface Props {
+  text: string;
+  cta: { label: string; href: string };
+  showAfterScroll?: number;
+  dismissible?: boolean;
+  storageKey?: string;
+}
+
+const {
+  text,
+  cta,
+  showAfterScroll = 400,
+  dismissible = true,
+  storageKey = 'sticky-cta-global',
+} = Astro.props;
+
+const uid = `sticky-cta-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<div
+  id={uid}
+  class="fixed bottom-0 left-0 right-0 z-50 bg-[var(--color-primary)] text-[var(--color-text-inverse)] px-4 py-3 md:py-4 shadow-lg translate-y-full transition-transform duration-300"
+  role="complementary"
+  aria-label="Handlungsaufforderung"
+>
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
+    <p class="text-sm md:text-base font-medium text-center sm:text-left">
+      {text}
+    </p>
+    <div class="flex items-center gap-3 flex-shrink-0">
+      <a
+        href={cta.href}
+        class="inline-block bg-white text-[var(--color-primary)] font-semibold text-sm px-5 py-2 rounded hover:bg-white/90 transition"
+      >
+        {cta.label}
+      </a>
+      {dismissible && (
+        <button
+          id={`${uid}-close`}
+          type="button"
+          aria-label="Ausblenden"
+          class="p-1 rounded-full hover:bg-white/20 transition text-[var(--color-text-inverse)]/70 hover:text-[var(--color-text-inverse)]"
+        >
+          <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      )}
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ uid, showAfterScroll, dismissible, storageKey }}>
+  const bar = document.getElementById(uid);
+  if (!bar) return;
+
+  const dismissedKey = `${storageKey}:dismissed`;
+  const animatedKey = `${storageKey}:animated`;
+  const storage = (() => {
+    try {
+      return window.localStorage;
+    } catch {
+      return null;
+    }
+  })();
+
+  // Persistenter Dismiss-Check
+  if (dismissible && storage?.getItem(dismissedKey) === '1') {
+    bar.remove();
+    return;
+  }
+
+  let visible = false;
+  let hasAnimated = storage?.getItem(animatedKey) === '1';
+
+  function show() {
+    if (visible) return;
+    visible = true;
+
+    if (hasAnimated) {
+      const prevTransition = bar.style.transition;
+      bar.style.transition = 'none';
+      bar.style.transform = 'translateY(0)';
+      window.requestAnimationFrame(() => {
+        bar.style.transition = prevTransition;
+      });
+      return;
+    }
+
+    bar.style.transform = 'translateY(0)';
+    hasAnimated = true;
+    storage?.setItem(animatedKey, '1');
+  }
+
+  function hide() {
+    visible = false;
+    bar.style.transform = 'translateY(100%)';
+  }
+
+  // Scroll Listener
+  function onScroll() {
+    if (window.scrollY >= showAfterScroll) {
+      show();
+    } else {
+      hide();
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll(); // Initial check
+
+  // Close Button
+  if (dismissible) {
+    const closeBtn = document.getElementById(`${uid}-close`);
+    closeBtn?.addEventListener('click', () => {
+      storage?.setItem(dismissedKey, '1');
+      hide();
+      setTimeout(() => bar.remove(), 350);
+    });
+  }
+</script>

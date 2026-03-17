@@ -1,0 +1,100 @@
+---
+interface Stat {
+  value: number;
+  label: string;
+  prefix?: string; // z.B. "€", ">"
+  suffix?: string; // z.B. "+", "%", "k"
+}
+
+interface Props {
+  headline?: string;
+  subline?: string;
+  stats: Stat[];
+  backgroundVariant?: 'light' | 'dark';
+}
+
+const {
+  headline,
+  subline,
+  stats,
+  backgroundVariant = 'light',
+} = Astro.props;
+
+const isDark = backgroundVariant === 'dark';
+---
+
+<section class={`animate-on-scroll py-16 md:py-24 ${isDark ? 'bg-[var(--color-primary)]' : 'bg-[var(--color-bg)]'}`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    {(headline || subline) && (
+      <div class="text-center mb-12 md:mb-16">
+        {headline && (
+          <h2 class={`text-3xl md:text-4xl font-bold tracking-tight mb-4 ${isDark ? 'text-[var(--color-text-inverse)]' : 'text-[var(--color-text)]'}`}>
+            {headline}
+          </h2>
+        )}
+        {subline && (
+          <p class={`text-lg max-w-2xl mx-auto ${isDark ? 'text-[var(--color-text-inverse)] opacity-80' : 'text-[var(--color-text-muted)]'}`}>
+            {subline}
+          </p>
+        )}
+      </div>
+    )}
+
+    <div class={`animate-stagger grid grid-cols-2 ${stats.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'} gap-8 md:gap-12 text-center`}>
+      {stats.map((stat, i) => (
+        <div class="animate-item animate-up flex flex-col items-center gap-2">
+          <div class={`text-5xl md:text-6xl font-bold tabular-nums leading-none ${isDark ? 'text-[var(--color-text-inverse)]' : 'text-[var(--color-primary)]'}`}>
+            <span class="stat-prefix">{stat.prefix ?? ''}</span>
+            <span
+              class="stat-counter"
+              data-target={stat.value}
+              data-index={i}
+            >0</span>
+            <span class="stat-suffix">{stat.suffix ?? ''}</span>
+          </div>
+          <p class={`text-sm font-medium tracking-wide uppercase ${isDark ? 'text-[var(--color-text-inverse)] opacity-70' : 'text-[var(--color-text-muted)]'}`}>
+            {stat.label}
+          </p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function easeOutQuart(t: number): number {
+    return 1 - Math.pow(1 - t, 4);
+  }
+
+  function animateCounter(el: HTMLElement, target: number, duration = 1800) {
+    const start = performance.now();
+    const update = (now: number) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const value = Math.round(easeOutQuart(progress) * target);
+      el.textContent = value.toLocaleString('de-DE');
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
+
+  const counters = document.querySelectorAll<HTMLElement>('.stat-counter');
+  if (counters.length > 0) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          if (el.dataset.counted) return; // Nur einmal animieren
+          el.dataset.counted = 'true';
+          const target = parseInt(el.dataset.target ?? '0', 10);
+          animateCounter(el, target);
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    counters.forEach((el) => observer.observe(el));
+  }
+</script>
