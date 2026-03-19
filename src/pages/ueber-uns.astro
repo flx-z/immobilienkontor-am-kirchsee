@@ -5,10 +5,12 @@ import PageHeader from '../components/utility/PageHeader.astro';
 import AboutSplit from '../components/core/AboutSplit.astro';
 import ContentParagraph from '../components/core/ContentParagraph.astro';
 import FeaturesGrid from '../components/core/FeaturesGrid.astro';
+import ContentFullscreenImage from '../components/standard/ContentFullscreenImage.astro';
 import CTABanner from '../components/core/CTABanner.astro';
 import FooterStandard from '../components/core/FooterStandard.astro';
 
 import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
+import besichtigungImg from '../assets/images/mz_besichtigung.jpeg';
 ---
 <BaseLayout
   title="Über uns – Immobilienkontor am Kirchsee | Preetz & Kiel"
@@ -42,7 +44,7 @@ import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
   <AboutSplit
     kicker="Der Gründer"
     headline="Marcel Ziebell – Ihr strategischer Partner."
-    text="Marcel Ziebell gründete das Immobilienkontor am Kirchsee mit einer klaren Überzeugung: Immobilienverkäufer verdienen eine Vertretung, die ausschließlich ihre Interessen im Blick hat. Sein Ansatz verbindet tiefe lokale Marktkenntnis in Preetz, Kiel und Umgebung mit einem strukturierten, wirtschaftlich durchdachten Vorgehen – transparent, ohne Interessenkonflikte und mit messbarem Ergebnis."
+    text="Marcel Ziebell gründete das Immobilienkontor am Kirchsee mit einer klaren Überzeugung: Immobilienverkäufer verdienen eine Vertretung, die ausschließlich ihre Interessen im Blick hat – und ein Vergütungsmodell, das diese Haltung konsequent widerspiegelt. Sein Ansatz verbindet tiefe lokale Marktkenntnis in Preetz, Kiel und Umgebung mit ökonomischem Denken: 2,975 % Verkäuferprovision, keine Käuferprovision – weil ein breiterer Käuferkreis wirtschaftlich bessere Ergebnisse für Verkäufer erzielt."
     qualifications={[
       { label: "Ausschließliche Vertretung der Verkäuferinteressen" },
       { label: "Strategische Verkaufssteuerung statt reiner Vermittlung" },
@@ -58,15 +60,24 @@ import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
   <ContentParagraph
     kicker="Unser Ansatz"
     headline="Eine neue Art der Immobilienvermittlung."
-    text="Das Immobilienkontor am Kirchsee steht für eine bewusst andere Struktur: Während viele Maklermodelle historisch gewachsen sind und sowohl Käufer als auch Verkäufer bedienen, vertreten wir ausschließlich die Interessen des Verkäufers. Dieser Fokus ermöglicht eine klare Ausrichtung in der Vermarktung, in der Kommunikation und in der gesamten Strategie. Jede Entscheidung wird aus der Perspektive des Verkäufers getroffen – nachvollziehbar, strukturiert und ohne versteckte Interessen."
+    text="Das Immobilienkontor am Kirchsee steht für eine bewusst andere Struktur: Während viele Maklermodelle historisch gewachsen sind und sowohl Käufer als auch Verkäufer bedienen, vertreten wir ausschließlich die Interessen des Verkäufers. Und deshalb ist auch unser Vergütungsmodell so aufgebaut, dass die Käuferseite nicht zusätzlich belastet wird: 2,975 % auf Verkäuferseite, keine Käuferprovision. Damit werden mehr Käufer finanzierungsfähig, die Nachfrage steigt – und Verkäufer profitieren von einer stärkeren Verhandlungsposition. Jede Entscheidung wird aus der Perspektive des Verkäufers getroffen – nachvollziehbar, strukturiert und ohne versteckte Interessen."
     backgroundVariant="dark"
+  />
+
+  <ContentFullscreenImage
+    image={{ src: besichtigungImg, alt: "Marcel Ziebell bei einer Immobilienbesichtigung vor Ort" }}
+    headline="Vor Ort. Für Sie. Mit Überzeugung."
+    subline="Jede Immobilie verdient eine persönliche Begehung – und einen Berater, der ausschließlich Ihre Interessen vertritt."
+    overlayOpacity={60}
+    contentAlign="center"
+    height="md"
   />
 
   <FeaturesGrid
     headline="Was uns antreibt"
     features={[
       { icon: "check-badge", title: "Interessenklarheit", text: "Keine Doppelmandate, keine Graubereiche. Wir wissen, für wen wir arbeiten – und handeln konsequent danach." },
-      { icon: "chart-bar", title: "Wirtschaftliche Vernunft", text: "Jeder Schritt im Verkaufsprozess wird auf seinen wirtschaftlichen Nutzen für den Verkäufer geprüft." },
+      { icon: "chart-bar", title: "Wirtschaftliche Vernunft", text: "Vom Provisionsmodell bis zur Vermarktungsstrategie: Jeder Schritt wird auf seinen wirtschaftlichen Nutzen für den Verkäufer geprüft. 2,975 % Verkäuferprovision und keine Käuferprovision sind kein Zufall, sondern Kalkül." },
       { icon: "lock", title: "Transparenz", text: "Alle Informationen, alle Schritte, alle Entscheidungen – offen kommuniziert und gemeinsam getroffen." },
       { icon: "map-pin", title: "Lokale Verwurzelung", text: "Preetz, Kiel und Umgebung sind kein Vertriebsgebiet – sondern unser Zuhause und unser Netzwerk." },
       { icon: "search", title: "Strategisches Denken", text: "Kein Verkauf ist wie der andere. Wir entwickeln für jedes Objekt eine maßgeschneiderte Strategie." },
@@ -85,7 +96,7 @@ import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
   />
 
   <FooterStandard
-    logo={{ src: "/logo.svg", alt: "Immobilienkontor am Kirchsee Logo", height: 56 }}
+    logo={{ src: "/logo.svg", alt: "Immobilienkontor am Kirchsee Logo", height: 80 }}
     description="Konsequent auf Ihrer Seite."
     columns={[
       {

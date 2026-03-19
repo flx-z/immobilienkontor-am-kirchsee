@@ -8,6 +8,8 @@ import FeaturesGrid from '../components/core/FeaturesGrid.astro';
 import ContentQuote from '../components/standard/ContentQuote.astro';
 import CTABanner from '../components/core/CTABanner.astro';
 import FooterStandard from '../components/core/FooterStandard.astro';
+
+import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
 ---
 <BaseLayout
   title="Ihr Vorteil beim Verkauf – Immobilienkontor am Kirchsee | Preetz"
@@ -38,14 +40,14 @@ import FooterStandard from '../components/core/FooterStandard.astro';
   <ContentParagraph
     kicker="Das Prinzip"
     headline="Weniger Hürden für Käufer – mehr Ergebnis für Sie."
-    text="Im klassischen Maklermodell trägt der Käufer eine Provision von bis zu 3,57 % des Kaufpreises. Diese Summe erhöht die Kaufnebenkosten erheblich und schließt einen Teil der potenziellen Käufer aus – nämlich jene, deren Eigenkapital für diese Mehrkosten nicht ausreicht. Das Immobilienkontor am Kirchsee verzichtet auf die Käuferprovision vollständig. Das Ergebnis: ein messbarer Anstieg der finanzierungsfähigen Interessenten, mehr Nachfrage, mehr Wettbewerb – und in der Konsequenz bessere Preise für Sie als Verkäufer."
+    text="Käufer sind in Deutschland mit hohen Kaufnebenkosten konfrontiert: Grunderwerbsteuer, Notar, Grundbuch – und im klassischen Modell zusätzlich eine Maklerprovision von rund 3,57 %. Diese Nebenkosten müssen in der Regel aus Eigenkapital gezahlt werden, weil Banken sie meist nicht oder nur zu schlechteren Konditionen finanzieren. Bei einem Haus mit rund 450.000 € Kaufpreis entstehen so schnell zusätzliche Kosten im fünfstelligen Bereich allein durch die Maklerprovision. Viele potenzielle Käufer fallen dadurch komplett raus oder sind deutlich eingeschränkt. Unser Modell setzt genau hier an: 2,975 % Provision auf Verkäuferseite – keine Käuferprovision. Damit sinkt die Einstiegshürde erheblich, Käufer benötigen weniger Eigenkapital und Finanzierungen werden einfacher. Der Kreis der real kaufkräftigen Interessenten wird größer – und das stärkt Ihre Position als Verkäufer."
     backgroundVariant="light"
   />
 
   <AboutStats
     headline="Die Logik dahinter in Zahlen"
     stats={[
-      { value: 3, suffix: ",57%", label: "Käuferprovision im klassischen Modell" },
+      { value: 2, suffix: ",975%", label: "Faire Verkäuferprovision" },
       { value: 0, suffix: "€", label: "Käuferprovision bei uns" },
       { value: 100, suffix: "%", label: "Entscheidungen in Ihrem Interesse" }
     ]}
@@ -67,10 +69,25 @@ import FooterStandard from '../components/core/FooterStandard.astro';
     backgroundVariant="light"
   />
 
+  <ContentParagraph
+    kicker="Regional gedacht"
+    headline="Mehr Chancen für Käufer – mehr Ergebnis für Verkäufer."
+    text="Gerade in Preetz, Kiel und Umgebung gibt es viele junge Familien, die Eigentum bilden möchten, aber oft an genau diesen Nebenkosten scheitern. Unser Ansatz gibt diesen Menschen wieder eine realistische Chance, überhaupt Eigentum zu erwerben – und erweitert gleichzeitig den Kreis der Interessenten für Ihre Immobilie. Wenn ein Käufer nicht zusätzlich mehrere zehntausend Euro Maklerkosten aus Eigenkapital aufbringen muss, verbessert das häufig seine Finanzierungsspielräume. Käufer haben mehr Spielraum und können sich eher für eine Immobilie entscheiden – oder auch einen leicht höheren Kaufpreis darstellen. Das ist kein sozialer Ansatz im klassischen Sinne, sondern eine logischere und effizientere Struktur für den Markt. Unser Modell schafft Vorteile für alle Beteiligten – Verkäufer, Käufer und den gesamten Verkaufsprozess."
+    backgroundVariant="light"
+  />
+
   <ContentQuote
-    quote="Mehr finanzierungsfähige Käufer bedeuten mehr Nachfrage. Mehr Nachfrage führt zu mehr Wettbewerb. Mehr Wettbewerb führt zu besseren Preisen."
+    quote="Mehr finanzierungsfähige Käufer bedeuten mehr Nachfrage. Mehr Nachfrage führt zu mehr Wettbewerb. Mehr Wettbewerb führt zu besseren Preisen. Unser Modell ist nicht billiger um des Billigseins willen – sondern wirtschaftlich intelligenter für Verkäufer."
     name="Marcel Ziebell"
     role="Gründer, Immobilienkontor am Kirchsee"
+    image={{ src: portraitImg.src, alt: "Marcel Ziebell, Gründer Immobilienkontor am Kirchsee" }}
+    backgroundVariant="dark"
+  />
+
+  <ContentParagraph
+    kicker="Warum dieses Modell funktioniert"
+    headline="Effizient, fokussiert, ohne unnötige Strukturen."
+    text="Wir verzichten bewusst auf einen Teil der branchenüblichen Provision, weil wir sehr effizient arbeiten. Keine unnötigen Strukturen, keine Nebentätigkeiten wie Vermietung oder Verwaltung. Wir konzentrieren uns ausschließlich auf unsere Kernkompetenz: das Vermarkten von Immobilien aller Art. Diese Fokussierung ermöglicht es uns, ein Vergütungsmodell anzubieten, das für Verkäufer wirtschaftlich sinnvoller ist – ohne Abstriche bei der Qualität der Beratung oder Vermarktung."
     backgroundVariant="dark"
   />
 
@@ -82,7 +99,7 @@ import FooterStandard from '../components/core/FooterStandard.astro';
   />
 
   <FooterStandard
-    logo={{ src: "/logo.svg", alt: "Immobilienkontor am Kirchsee Logo", height: 56 }}
+    logo={{ src: "/logo.svg", alt: "Immobilienkontor am Kirchsee Logo", height: 80 }}
     description="Konsequent auf Ihrer Seite."
     columns={[
       {

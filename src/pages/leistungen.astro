@@ -9,6 +9,8 @@ import CTABanner from '../components/core/CTABanner.astro';
 import FooterStandard from '../components/core/FooterStandard.astro';
 
 import beratungImg from '../assets/images/beratung_handschlag.jpg';
+import einzelfallImg from '../assets/images/einzelfall.jpeg';
+import strukturImg from '../assets/images/mz_struktur.jpeg';
 ---
 <BaseLayout
   title="Leistungen beim Immobilienverkauf – Immobilienkontor am Kirchsee"
@@ -40,7 +42,7 @@ import beratungImg from '../assets/images/beratung_handschlag.jpg';
     features={[
       {
         title: "Ausschließlich auf Ihrer Seite",
-        text: "Wir übernehmen keine Mandate für Käufer. Das bedeutet: Jede Entscheidung, jede Empfehlung und jede Verhandlungsstrategie ist ausschließlich auf Ihren wirtschaftlichen Vorteil ausgerichtet. Interessenkonflikte sind strukturell ausgeschlossen.",
+        text: "Wir übernehmen keine Mandate für Käufer. Jede Entscheidung, jede Empfehlung und jede Verhandlungsstrategie ist ausschließlich auf Ihren wirtschaftlichen Vorteil ausgerichtet. Unser Vergütungsmodell ist konsequent auf dieses Prinzip abgestimmt: 2,975 % Provision auf Verkäuferseite, keine Käuferprovision – damit potenzielle Käufer nicht schon an den Nebenkosten scheitern.",
         cta: { label: "Erstgespräch anfragen", href: "/kontakt" },
         image: { src: beratungImg, alt: "Persönliche Beratung und Handschlag bei der Immobilienübergabe" }
       },
@@ -48,12 +50,12 @@ import beratungImg from '../assets/images/beratung_handschlag.jpg';
         title: "Jede Immobilie ist ein Einzelfall",
         text: "Wir entwickeln für jedes Objekt eine individuelle Verkaufsstrategie. Marktumfeld, Objekteigenschaften, Zielgruppe und Timing werden aufeinander abgestimmt – für ein optimales Ergebnis unter realen Marktbedingungen.",
         cta: { label: "Vorteil berechnen", href: "/ihr-vorteil" },
-        image: { src: "", alt: "" }
+        image: { src: einzelfallImg, alt: "Individuelle Verkaufsstrategie für jede Immobilie" }
       },
       {
         title: "Sie entscheiden – wir strukturieren",
         text: "In jeder Phase des Verkaufs behalten Sie die Kontrolle. Wir bereiten alle relevanten Informationen verständlich auf, erläutern Optionen und deren Konsequenzen – und treffen Entscheidungen gemeinsam mit Ihnen.",
-        image: { src: "", alt: "" }
+        image: { src: strukturImg, alt: "Marcel Ziebell bei der strukturierten Verkaufsberatung" }
       }
     ]}
   />
@@ -63,8 +65,8 @@ import beratungImg from '../assets/images/beratung_handschlag.jpg';
     subline="Strukturiert, nachvollziehbar und konsequent auf Ihr Ergebnis ausgerichtet."
     steps={[
       { title: "Analyse & Erstgespräch", text: "Wir verstehen Ihre Situation, Ihre Immobilie und Ihre Ziele – bevor wir irgendetwas empfehlen." },
-      { title: "Marktbewertung & Strategie", text: "Realistische Marktpreisermittlung und Entwicklung der individuellen Verkaufsstrategie." },
-      { title: "Professionelle Vermarktung", text: "Gezielte Ansprache finanzierungsfähiger Käufer – ohne Provisionshürde, mit maximaler Reichweite." },
+      { title: "Marktbewertung & Strategie", text: "Realistische Marktpreisermittlung und Entwicklung der individuellen Verkaufsstrategie – unter Berücksichtigung des breiteren Käuferkreises, der durch den Wegfall der Käuferprovision entsteht." },
+      { title: "Professionelle Vermarktung", text: "Gezielte Ansprache eines größeren Kreises finanzierungsfähiger Käufer. Ohne Käuferprovision sinken die Einstiegskosten – gerade für junge Familien in der Region oft der entscheidende Unterschied." },
       { title: "Verhandlung & Abschluss", text: "Wir führen Verhandlungen konsequent in Ihrem Interesse und begleiten Sie bis zum notariellen Abschluss." }
     ]}
     backgroundVariant="dark"
@@ -75,7 +77,7 @@ import beratungImg from '../assets/images/beratung_handschlag.jpg';
     items={[
       { question: "Für welche Immobilientypen sind Sie zuständig?", answer: "Wir begleiten den Verkauf von Eigentumswohnungen, Einfamilienhäusern, Mehrfamilienhäusern und Grundstücken in der Region Preetz, Kiel und Umgebung." },
       { question: "Wie läuft das erste Beratungsgespräch ab?", answer: "Das Erstgespräch ist unverbindlich und kostenlos. Wir lernen Ihre Immobilie und Ihre Erwartungen kennen, erläutern unseren Ansatz und beantworten alle Fragen – ohne Verkaufsdruck." },
-      { question: "Wie lange dauert ein typischer Verkaufsprozess?", answer: "Das hängt von Objekt, Lage und Marktumfeld ab. Durch den Wegfall der Käuferprovision und die gezielte Vermarktung sind Verkaufsprozesse in der Regel effizienter als im klassischen Modell." },
+      { question: "Wie lange dauert ein typischer Verkaufsprozess?", answer: "Das hängt von Objekt, Lage und Marktumfeld ab. Durch den Wegfall der Käuferprovision werden mehr Käufer finanzierungsfähig – weniger Finanzierungen scheitern an den Nebenkosten. Das beschleunigt den Prozess und macht Verkäufe in der Regel effizienter als im klassischen Modell." },
       { question: "Übernehmen Sie auch die Kommunikation mit Kaufinteressenten?", answer: "Ja. Wir koordinieren alle Besichtigungen, führen Gespräche mit Interessenten und halten Sie regelmäßig auf dem Laufenden – strukturiert und ohne unnötigen Aufwand für Sie." }
     ]}
     backgroundVariant="light"
@@ -89,7 +91,7 @@ import beratungImg from '../assets/images/beratung_handschlag.jpg';
   />
 
   <FooterStandard
-    logo={{ src: "/logo.svg", alt: "Immobilienkontor am Kirchsee Logo", height: 56 }}
+    logo={{ src: "/logo.svg", alt: "Immobilienkontor am Kirchsee Logo", height: 80 }}
     description="Konsequent auf Ihrer Seite."
     columns={[
       {

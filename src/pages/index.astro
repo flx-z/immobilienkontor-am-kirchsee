@@ -11,7 +11,7 @@ import FAQAccordion from '../components/standard/FAQAccordion.astro';
 import CTABanner from '../components/core/CTABanner.astro';
 import FooterStandard from '../components/core/FooterStandard.astro';
 
-import heroImg from '../assets/images/hero_background.jpg';
+import heroImg from '../assets/images/hero_new.jpeg';
 import fullscreenImg from '../assets/images/fullscreen_architektur.jpg';
 import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
 ---
@@ -37,20 +37,20 @@ import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
   <HeroCentered
     kicker="Immobilienvermittlung Preetz & Kiel"
     headline="Konsequent auf Ihrer Seite."
-    subline="Wir vertreten ausschließlich Ihre Interessen als Verkäufer – strukturiert, transparent und mit messbarem wirtschaftlichem Vorteil."
+    subline="Ausschließlich Verkäuferinteressen. 2,975 % Verkäuferprovision – keine Käuferprovision. Mehr Nachfrage, bessere Ergebnisse."
     primaryCta={{ text: "Jetzt Beratung anfragen", href: "/kontakt" }}
     secondaryCta={{ text: "Ihr Vorteil entdecken", href: "/ihr-vorteil" }}
-    backgroundImage={{ src: heroImg, alt: "Norddeutsche Seenlandschaft bei Preetz", overlayOpacity: 0.55 }}
+    backgroundImage={{ src: heroImg, alt: "Marcel Ziebell, Immobilienkontor am Kirchsee", overlayOpacity: 0.55, objectPosition: "center 30%" }}
     backgroundVariant="dark"
-    primaryCtaVariant="primary"
+    primaryCtaVariant="secondary"
   />
 
   <TrustBadges
     badges={[
       { icon: "check-badge", value: "100%", label: "Ausschließlich Verkäuferinteressen" },
-      { icon: "euro", value: "0€", label: "Käuferprovision entfällt" },
-      { icon: "map-pin", value: "Preetz", label: "Tiefe lokale Marktkenntnis" },
-      { icon: "shield-check", value: "Klar", label: "Keine Interessenkonflikte" }
+      { icon: "euro", value: "2,975%", label: "Faire Verkäuferprovision" },
+      { icon: "euro", value: "0€", label: "Keine Käuferprovision" },
+      { icon: "map-pin", value: "Preetz", label: "Tiefe lokale Marktkenntnis" }
     ]}
     layout="row"
   />
@@ -60,7 +60,7 @@ import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
     subline="Vier Prinzipien, die jeden Schritt in unserem Verkaufsprozess bestimmen."
     features={[
       { icon: "shield-check", title: "Nur Ihre Interessen", text: "Wir arbeiten ausschließlich für Sie als Verkäufer. Keine Doppelmandate, keine versteckten Interessenkonflikte." },
-      { icon: "euro", title: "Käuferprovision entfällt", text: "Mehr finanzierungsfähige Käufer bedeuten mehr Nachfrage – und bessere Preise für Sie." },
+      { icon: "euro", title: "Weniger Einstiegskosten – breiterer Käuferkreis", text: "Ohne Käuferprovision sinken die Kaufnebenkosten erheblich. Käufer benötigen weniger Eigenkapital, Finanzierungen werden einfacher – und der Kreis der real kaufkräftigen Interessenten für Ihre Immobilie wächst." },
       { icon: "chart-bar", title: "Strategische Verkaufssteuerung", text: "Jeder Verkauf ist eine individuelle Strategie: Marktumfeld, Objekt, Zielgruppe und Timing abgestimmt." },
       { icon: "check-circle", title: "Vollständige Transparenz", text: "Sie behalten jederzeit die Kontrolle. Entscheidungen werden gemeinsam und nachvollziehbar getroffen." },
       { icon: "map-pin", title: "Lokale Verwurzelung", text: "Fokus auf Preetz, Kiel und Umgebung – persönliche Marktkenntnis, die über Plattformen hinausgeht." },
@@ -84,11 +84,11 @@ import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
     headline="Ihr Weg zum optimalen Verkaufsergebnis"
     subline="Strukturiert, transparent und stets in enger Abstimmung mit Ihnen."
     steps={[
-      { title: "Erstes Beratungsgespräch", text: "Wir analysieren gemeinsam Ihre Situation, Ihre Ziele und das Marktumfeld. Unverbindlich und auf Augenhöhe." },
-      { title: "Individuelle Verkaufsstrategie", text: "Auf Basis Ihrer Immobilie, der lokalen Nachfrage und dem richtigen Timing entwickeln wir eine maßgeschneiderte Strategie." },
-      { title: "Gezielte Vermarktung", text: "Wir sprechen finanzierungsfähige Käufer direkt an – ohne Provisionshürde für den Käufer, mit maximaler Reichweite für Sie." },
-      { title: "Transparente Entscheidungsfindung", text: "Jeder Schritt wird gemeinsam besprochen. Sie entscheiden – wir beraten, strukturieren und koordinieren." },
-      { title: "Erfolgreicher Abschluss", text: "Vom Kaufvertrag bis zur Übergabe begleiten wir Sie vollständig und sorgen für einen reibungslosen Abschluss." }
+      { title: "Erstes Beratungsgespräch", text: "Wir analysieren gemeinsam Ihre Situation, Ihre Ziele und das Marktumfeld – und zeigen Ihnen, wie unser Provisionsmodell konkret auf Ihr Objekt wirkt." },
+      { title: "Individuelle Verkaufsstrategie", text: "Wir entwickeln eine Strategie, die den breiteren Käuferkreis durch den Wegfall der Käuferprovision gezielt als Hebel nutzt – abgestimmt auf Objekt, Zielgruppe und Timing." },
+      { title: "Gezielte Vermarktung", text: "Ohne Provisionshürde erreichen wir einen größeren Kreis finanzierungsfähiger Käufer. Gerade junge Familien in Preetz, Kiel und Umgebung profitieren von der niedrigeren Einstiegshürde." },
+      { title: "Transparente Entscheidungsfindung", text: "Mehr Interessenten bedeuten mehr Auswahl für Sie. Jeder Schritt wird gemeinsam besprochen – Sie entscheiden auf einer breiteren Verhandlungsbasis." },
+      { title: "Erfolgreicher Abschluss", text: "Mehr Wettbewerb unter Käufern stärkt Ihre Position. Wir führen Verhandlungen konsequent in Ihrem Interesse und begleiten Sie bis zur Übergabe." }
     ]}
     backgroundVariant="dark"
   />
@@ -99,7 +99,7 @@ import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
     text="Das Immobilienkontor am Kirchsee wurde gegründet, weil der Immobilienmarkt einen anderen Ansatz verdient. Einen, der konsequent auf der Seite des Verkäufers steht – ohne Kompromisse, ohne Interessenkonflikte. Marcel Ziebell vereint lokale Marktkenntnis mit einem strukturierten, wirtschaftlich durchdachten Vorgehen."
     qualifications={[
       { label: "Ausschließliche Vertretung der Verkäuferinteressen" },
-      { label: "Keine Käuferprovision – mehr finanzierungsfähige Käufer" },
+      { label: "2,975 % Verkäuferprovision – 0 € Käuferprovision" },
       { label: "Tiefe Marktkenntnis in Preetz, Kiel und Umgebung" },
       { label: "Strategische Verkaufssteuerung statt reiner Vermittlung" }
     ]}
@@ -114,7 +114,7 @@ import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
     subline="Antworten auf die wichtigsten Fragen rund um unseren Ansatz und Ihr Verkaufsvorhaben."
     items={[
       { question: "Was bedeutet es, ausschließlich für den Verkäufer tätig zu sein?", answer: "Wir schließen explizit aus, gleichzeitig für Käufer tätig zu sein. Jede Entscheidung – von der Preisstrategie bis zur Verhandlungsführung – wird allein aus Ihrer Perspektive als Verkäufer getroffen." },
-      { question: "Warum fällt für Käufer keine Provision an?", answer: "Unser Provisionsmodell sieht vor, dass die Vergütung ausschließlich auf Verkäuferseite anfällt. Das senkt die Kaufnebenkosten für Käufer und erhöht damit die Zahl der finanzierungsfähigen Interessenten." },
+      { question: "Warum fällt für Käufer keine Provision an?", answer: "Unser Modell: 2,975 % Provision auf Verkäuferseite – keine Käuferprovision. Damit sinken die Kaufnebenkosten für Käufer erheblich, weil die Maklerprovision nicht mehr aus dem Eigenkapital aufgebracht werden muss. Das erhöht die Zahl der finanzierungsfähigen Interessenten – und stärkt Ihre Verhandlungsposition als Verkäufer." },
       { question: "Wie wirkt sich das Provisionsmodell auf meinen Verkaufspreis aus?", answer: "Mehr finanzierungsfähige Käufer bedeuten mehr Wettbewerb. Mehr Wettbewerb führt in der Regel zu besseren Preisen. Dieser Effekt wird von uns gezielt als strategisches Instrument eingesetzt." },
       { question: "In welchen Regionen sind Sie tätig?", answer: "Unser Schwerpunkt liegt auf Preetz, Kiel und dem umliegenden Schleswig-Holstein. Unsere lokale Marktkenntnis und unser Netzwerk sind integraler Bestandteil unserer Dienstleistung." },
       { question: "Was ist das Tippgeber-Modell?", answer: "Personen, die uns den Kontakt zu einem potenziellen Verkäufer herstellen, erhalten bei erfolgreichem Verkauf eine feste Prämie. So entsteht ein organisches Empfehlungsnetzwerk in der Region." }
@@ -131,7 +131,7 @@ import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
   />
 
   <FooterStandard
-    logo={{ src: "/logo.svg", alt: "Immobilienkontor am Kirchsee Logo", height: 56 }}
+    logo={{ src: "/logo.svg", alt: "Immobilienkontor am Kirchsee Logo", height: 80 }}
     description="Konsequent auf Ihrer Seite."
     columns={[
       {

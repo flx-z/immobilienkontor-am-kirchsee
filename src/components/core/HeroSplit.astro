@@ -100,9 +100,13 @@ const imageRight = imagePosition === 'right';
       </div>
     </div>
 
-    {/* Bild-Seite – füllt volle Höhe, object-cover */}
+    {/* Bild-Seite – füllt volle Höhe */}
     <div class={`animate-item ${imageRight ? 'animate-right' : 'animate-left'} order-first lg:order-none w-full lg:w-1/2 min-h-[300px] lg:min-h-0 relative`}>
-      {typeof image.src === 'string' ? (
+      {typeof image.src === 'string' && image.src.endsWith('.svg') ? (
+        <div class="absolute inset-0 flex items-center justify-center p-10 md:p-16 lg:p-20">
+          <img src={image.src} alt={image.alt || ''} fetchpriority="high" class="w-full h-full object-contain max-w-[480px]" />
+        </div>
+      ) : typeof image.src === 'string' ? (
         image.src && <img src={image.src} alt={image.alt || ''} fetchpriority="high" class="absolute inset-0 w-full h-full object-cover" style={`object-position: ${imageObjectPosition}`} />
       ) : (
         <Image src={image.src} alt={image.alt || ''} widths={[600, 900, 1200]} formats={['webp', 'avif']} fetchpriority="high" class="absolute inset-0 w-full h-full object-cover" style={`object-position: ${imageObjectPosition}`} />
