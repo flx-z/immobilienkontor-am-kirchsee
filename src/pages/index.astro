@@ -11,7 +11,7 @@ import FAQAccordion from '../components/standard/FAQAccordion.astro';
 import CTABanner from '../components/core/CTABanner.astro';
 import FooterStandard from '../components/core/FooterStandard.astro';
 
-import heroImg from '../assets/images/hero_new.jpeg';
+import heroImg from '../assets/images/hero_new.png';
 import fullscreenImg from '../assets/images/fullscreen_architektur.jpg';
 import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
 ---
@@ -35,11 +35,11 @@ import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
   />
 
   <HeroCentered
-    kicker="Immobilienvermittlung Preetz & Kiel"
+    kicker="Immobilienvermittlung in Preetz, Kiel und Umgebung"
     headline="Konsequent auf Ihrer Seite."
     subline="Ausschließlich Verkäuferinteressen. 2,975 % Verkäuferprovision – keine Käuferprovision. Mehr Nachfrage, bessere Ergebnisse."
-    primaryCta={{ text: "Jetzt Beratung anfragen", href: "/kontakt" }}
-    secondaryCta={{ text: "Ihr Vorteil entdecken", href: "/ihr-vorteil" }}
+    primaryCta={{ text: "Kostenloses Strategiegespräch vereinbaren", href: "/kontakt" }}
+    secondaryCta={{ text: "Ihren Vorteil entdecken", href: "/ihr-vorteil" }}
     backgroundImage={{ src: heroImg, alt: "Marcel Ziebell, Immobilienkontor am Kirchsee", overlayOpacity: 0.55, objectPosition: "center 30%" }}
     backgroundVariant="dark"
     primaryCtaVariant="secondary"
@@ -50,14 +50,14 @@ import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
       { icon: "check-badge", value: "100%", label: "Ausschließlich Verkäuferinteressen" },
       { icon: "euro", value: "2,975%", label: "Faire Verkäuferprovision" },
       { icon: "euro", value: "0€", label: "Keine Käuferprovision" },
-      { icon: "map-pin", value: "Preetz", label: "Tiefe lokale Marktkenntnis" }
+      { icon: "map-pin", value: "Regional", label: "Tiefe lokale Marktkenntnis" }
     ]}
     layout="row"
   />
 
   <FeaturesGrid
-    headline="Was uns grundlegend unterscheidet"
-    subline="Vier Prinzipien, die jeden Schritt in unserem Verkaufsprozess bestimmen."
+    headline="Was unser Handeln bestimmt"
+    subline="Sechs Prinzipien, die jeden Schritt in unserem Verkaufsprozess bestimmen."
     features={[
       { icon: "shield-check", title: "Nur Ihre Interessen", text: "Wir arbeiten ausschließlich für Sie als Verkäufer. Keine Doppelmandate, keine versteckten Interessenkonflikte." },
       { icon: "euro", title: "Weniger Einstiegskosten – breiterer Käuferkreis", text: "Ohne Käuferprovision sinken die Kaufnebenkosten erheblich. Käufer benötigen weniger Eigenkapital, Finanzierungen werden einfacher – und der Kreis der real kaufkräftigen Interessenten für Ihre Immobilie wächst." },
@@ -96,7 +96,7 @@ import portraitImg from '../assets/images/portrait_marcel_ziebell.jpg';
   <AboutSplit
     kicker="Unser Ansatz"
     headline="Kein Makler – ein strategischer Partner."
-    text="Das Immobilienkontor am Kirchsee wurde gegründet, weil der Immobilienmarkt einen anderen Ansatz verdient. Einen, der konsequent auf der Seite des Verkäufers steht – ohne Kompromisse, ohne Interessenkonflikte. Marcel Ziebell vereint lokale Marktkenntnis mit einem strukturierten, wirtschaftlich durchdachten Vorgehen."
+    text="Das Immobilienkontor am Kirchsee wurde gegründet, weil der Immobilienmarkt einen neuen Ansatz verdient. Wir verbinden Verkäuferfokus mit einem wirtschaftlich durchdachten Modell. Durch den Verzicht auf eine Käuferprovision kann der Erwerb für mehr Menschen möglich werden – und gleichzeitig die Nachfrage nach Ihrer Immobilie steigern. Marcel Ziebell vereint lokale Marktkenntnis mit einem strukturierten, wirtschaftlich durchdachten Vorgehen."
     qualifications={[
       { label: "Ausschließliche Vertretung der Verkäuferinteressen" },
       { label: "2,975 % Verkäuferprovision – 0 € Käuferprovision" },

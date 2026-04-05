@@ -47,8 +47,7 @@ const alignClass = align === 'center' ? 'text-center mx-auto' : 'text-left';
         </Tag>
       )}
 
-      <p class={`text-lg leading-relaxed ${isDark ? 'text-[var(--color-text-muted)]' : 'text-[var(--color-text-muted)]'}`}>
-        {text}
+      <p class={`text-lg leading-relaxed ${isDark ? 'text-[var(--color-text-muted)]' : 'text-[var(--color-text-muted)]'}`} set:html={text}>
       </p>
 
     </div>

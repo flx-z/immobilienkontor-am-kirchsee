@@ -68,8 +68,7 @@ const defaultIconPath = `<path stroke-linecap="round" stroke-linejoin="round" d=
           {headline}
         </h2>
 
-        <p class="text-lg leading-relaxed text-[var(--color-text-muted)] mb-8">
-          {text}
+        <p class="text-lg leading-relaxed text-[var(--color-text-muted)] mb-8" set:html={text}>
         </p>
 
         {/* Qualifikationen */}
