@@ -3,7 +3,7 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://www.immobilienkontor-am-kirchsee.de',
+  site: 'https://immobilienkontor-kirchsee.de',
   integrations: [tailwind(), sitemap()],
   image: {
     quality: 80,
