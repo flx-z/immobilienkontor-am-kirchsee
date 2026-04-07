@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import NavStandard from '../components/core/NavStandard.astro';
 import PageHeader from '../components/utility/PageHeader.astro';
 import ContactSplit from '../components/core/ContactSplit.astro';
-import EmbedMap from '../components/standard/EmbedMap.astro';
+
 import FooterStandard from '../components/core/FooterStandard.astro';
 ---
 <BaseLayout
@@ -39,14 +39,8 @@ import FooterStandard from '../components/core/FooterStandard.astro';
     headline="Ihr strategisches Erstgespräch."
     subline="Unverbindlich, kostenlos und direkt mit Marcel Ziebell. Gemeinsam besprechen wir, welche wirtschaftlichen Hebel unser Verkaufsmodell für Ihr Objekt bietet."
     contactInfo={{ address: "Lange Brückstraße 28, 24211 Preetz" }}
+    mapEmbed="https://maps.google.com/maps?q=Lange+Br%C3%BCckstra%C3%9Fe+28+24211+Preetz&z=16&output=embed"
     backgroundVariant="light"
-  />
-
-  <EmbedMap
-    embedUrl="https://maps.google.com/maps?q=Lange+Br%C3%BCckstra%C3%9Fe+28+24211+Preetz&z=16&output=embed"
-    headline="So finden Sie uns"
-    subline="Immobilienkontor am Kirchsee, Lange Brückstraße 28, 24211 Preetz"
-    height="md"
   />
 
   <FooterStandard
