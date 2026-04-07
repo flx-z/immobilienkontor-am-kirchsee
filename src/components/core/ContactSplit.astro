@@ -136,11 +136,15 @@ const isDark = backgroundVariant === 'dark';
       {/* Rechte Spalte: Formular */}
       <div>
         <form
-          action={formAction}
-          method="post"
+          name="kontakt"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
           class="flex flex-col gap-4"
-          onsubmit="return false;"
         >
+          <p style="display:none">
+            <label>Nicht ausfüllen: <input name="bot-field" /></label>
+          </p>
           <div>
             <label for="contact-name" class="block text-xs font-semibold tracking-wide uppercase text-[var(--color-text-muted)] mb-1.5">Name *</label>
             <input
@@ -191,7 +195,7 @@ const isDark = backgroundVariant === 'dark';
             Nachricht senden
           </button>
           <p class="text-xs text-[var(--color-text-muted)] text-center">
-            Mit dem Absenden stimmen Sie unserer <a href="#" class="underline hover:text-[var(--color-primary)]">Datenschutzerklärung</a> zu.
+            Mit dem Absenden stimmen Sie unserer <a href="/datenschutz" class="underline hover:text-[var(--color-primary)]">Datenschutzerklärung</a> zu.
           </p>
         </form>
       </div>
