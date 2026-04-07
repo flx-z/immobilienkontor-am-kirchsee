@@ -28,6 +28,7 @@ interface Props {
     alt?: string;
     overlayOpacity?: number;
     objectPosition?: string;
+    objectPositionMobile?: string;
   };
   primaryCtaVariant?: 'primary' | 'secondary';
 }
@@ -50,6 +51,7 @@ const hasImage = !!backgroundImage;
 const textOnImage = hasImage;
 const overlayOpacity = backgroundImage?.overlayOpacity ?? 0.55;
 const objectPosition = backgroundImage?.objectPosition ?? 'center';
+const objectPositionMobile = backgroundImage?.objectPositionMobile ?? objectPosition;
 
 // Overlay-Farbe: Bei light-Variante heller Overlay (weiß), bei dark dunkler Overlay
 const overlayColor = isDark
@@ -63,9 +65,9 @@ const overlayColor = isDark
     {/* Bild-Block auf Mobile */}
     <div class="relative w-full h-[50vh] min-h-[280px] overflow-hidden">
       {typeof backgroundImage!.src === 'string' ? (
-        backgroundImage!.src && <img src={backgroundImage!.src} alt={backgroundImage!.alt || ''} fetchpriority="high" class="absolute inset-0 w-full h-full object-cover" style={`object-position: ${objectPosition}`} />
+        backgroundImage!.src && <img src={backgroundImage!.src} alt={backgroundImage!.alt || ''} fetchpriority="high" class="absolute inset-0 w-full h-full object-cover" style={`object-position: ${objectPositionMobile}`} />
       ) : (
-        <Image src={backgroundImage!.src} alt={backgroundImage!.alt || ''} widths={[600, 900]} formats={['webp', 'avif']} fetchpriority="high" class="absolute inset-0 w-full h-full object-cover" style={`object-position: ${objectPosition}`} />
+        <Image src={backgroundImage!.src} alt={backgroundImage!.alt || ''} widths={[900, 1200, 1600]} quality={92} formats={['webp']} fetchpriority="high" class="absolute inset-0 w-full h-full object-cover" style={`object-position: ${objectPositionMobile}`} />
       )}
     </div>
 
@@ -139,7 +141,7 @@ const overlayColor = isDark
     typeof backgroundImage!.src === 'string' ? (
       backgroundImage!.src && <img src={backgroundImage!.src} alt={backgroundImage!.alt || ''} class="absolute inset-0 w-full h-full object-cover z-0" style={`object-position: ${objectPosition}`} />
     ) : (
-      <Image src={backgroundImage!.src} alt={backgroundImage!.alt || ''} widths={[800, 1200, 1920]} formats={['webp', 'avif']} class="absolute inset-0 w-full h-full object-cover z-0" style={`object-position: ${objectPosition}`} />
+      <Image src={backgroundImage!.src} alt={backgroundImage!.alt || ''} widths={[1200, 1920, 2560]} quality={95} formats={['webp']} fetchpriority="high" class="absolute inset-0 w-full h-full object-cover z-0" style={`object-position: ${objectPosition}`} />
     )
   )}
   {/* Overlay – nur wenn Hintergrundbild vorhanden */}
